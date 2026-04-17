@@ -21,11 +21,18 @@
 .team-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.05em; color: var(--white); line-height: 1; margin-bottom: 0.3rem; }
 .team-role { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; opacity: 0.85; }
 .team-bio { font-size: 0.88rem; line-height: 1.65; color: var(--text-dim); font-weight: 300; }
-.hero-clock { position: absolute; right: 6rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.8rem; z-index: 3; }
-.hero-clock canvas { filter: drop-shadow(0 0 18px rgba(0,229,255,0.25)); }
-.clock-label { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); opacity: 0.75; }
-@media (max-width: 1024px) { .hero-clock { display: none; } }
-.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; } .fade-up.visible { opacity: 1; transform: translateY(0); } @media (max-width: 768px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .hero { padding: 8rem 1.5rem 4rem; } .section { padding: 5rem 1.5rem; } .why-section { padding: 5rem 1.5rem; } .why-inner { grid-template-columns: 1fr; gap: 3rem; } .why-visual { height: 280px; } .contact-section { padding: 5rem 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; } .stats { grid-template-columns: repeat(2, 1fr); } }</style></head><body>
+
+
+
+@media (max-width: 1024px) {  }
+.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; } .fade-up.visible { opacity: 1; transform: translateY(0); } @media (max-width: 768px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .hero { padding: 8rem 1.5rem 4rem; } .section { padding: 5rem 1.5rem; } .why-section { padding: 5rem 1.5rem; } .why-inner { grid-template-columns: 1fr; gap: 3rem; } .why-visual { height: 280px; } .contact-section { padding: 5rem 1.5rem; } footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; } .stats { grid-template-columns: repeat(2, 1fr); } }
+.ai-visual { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+#neuralCanvas { filter: drop-shadow(0 0 24px rgba(0,229,255,0.2)); }
+.ai-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); opacity: 0.7; display: flex; align-items: center; gap: 0.5rem; }
+.ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-ai 1.2s ease-in-out infinite; display: inline-block; }
+@keyframes pulse-ai { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+@media (max-width: 1024px) { .ai-visual { display: none; } }
+</style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSKCSX6M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -86,11 +93,12 @@
     </div>
   </div>
 
-  <!-- DIAL CLOCK -->
-  <div class="hero-clock">
-    <canvas id="dialClock" width="220" height="220"></canvas>
-    <div class="clock-label">LONDON <span id="clockTZ">GMT</span></div>
+  <!-- AI NEURAL NETWORK ANIMATION -->
+  <div class="ai-visual" id="aiVisual">
+    <canvas id="neuralCanvas"></canvas>
+    <div class="ai-label">NEURAL NETWORK <span class="ai-dot"></span> ACTIVE</div>
   </div>
+
 </section>
 
 <!-- TICKER -->
@@ -407,92 +415,81 @@
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
-  // DIAL CLOCK
-  (function() {
-    const canvas = document.getElementById('dialClock');
-    const ctx = canvas.getContext('2d');
-    const cx = 110, cy = 110, r = 100;
-
-    function drawClock() {
-      const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' }));
-      const h = now.getHours() % 12, m = now.getMinutes(), s = now.getSeconds();
-      const ms = now.getMilliseconds();
-
-      ctx.clearRect(0, 0, 220, 220);
-
-      // outer ring
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(0,229,255,0.18)'; ctx.lineWidth = 1; ctx.stroke();
-
-      // inner ring
-      ctx.beginPath(); ctx.arc(cx, cy, r - 12, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(0,229,255,0.08)'; ctx.lineWidth = 1; ctx.stroke();
-
-      // tick marks
-      for (let i = 0; i < 60; i++) {
-        const angle = (i / 60) * Math.PI * 2 - Math.PI / 2;
-        const isMajor = i % 5 === 0;
-        const outer = r - 2;
-        const inner = isMajor ? r - 14 : r - 8;
-        ctx.beginPath();
-        ctx.moveTo(cx + Math.cos(angle) * outer, cy + Math.sin(angle) * outer);
-        ctx.lineTo(cx + Math.cos(angle) * inner, cy + Math.sin(angle) * inner);
-        ctx.strokeStyle = isMajor ? 'rgba(0,229,255,0.6)' : 'rgba(0,229,255,0.2)';
-        ctx.lineWidth = isMajor ? 1.5 : 0.8;
-        ctx.stroke();
-      }
-
-      // hour numbers
-      ctx.font = "bold 10px 'Space Mono', monospace";
-      ctx.fillStyle = 'rgba(0,229,255,0.5)';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      [12,3,6,9].forEach(n => {
-        const angle = (n / 12) * Math.PI * 2 - Math.PI / 2;
-        ctx.fillText(n, cx + Math.cos(angle) * (r - 24), cy + Math.sin(angle) * (r - 24));
-      });
-
-      // hour hand
-      const hAngle = ((h + m / 60) / 12) * Math.PI * 2 - Math.PI / 2;
-      ctx.beginPath();
-      ctx.moveTo(cx - Math.cos(hAngle) * 10, cy - Math.sin(hAngle) * 10);
-      ctx.lineTo(cx + Math.cos(hAngle) * 55, cy + Math.sin(hAngle) * 55);
-      ctx.strokeStyle = 'rgba(242,240,234,0.9)'; ctx.lineWidth = 3;
-      ctx.lineCap = 'round'; ctx.stroke();
-
-      // minute hand
-      const mAngle = ((m + s / 60) / 60) * Math.PI * 2 - Math.PI / 2;
-      ctx.beginPath();
-      ctx.moveTo(cx - Math.cos(mAngle) * 12, cy - Math.sin(mAngle) * 12);
-      ctx.lineTo(cx + Math.cos(mAngle) * 75, cy + Math.sin(mAngle) * 75);
-      ctx.strokeStyle = 'rgba(242,240,234,0.75)'; ctx.lineWidth = 2;
-      ctx.lineCap = 'round'; ctx.stroke();
-
-      // second hand
-      const sAngle = ((s + ms / 1000) / 60) * Math.PI * 2 - Math.PI / 2;
-      ctx.beginPath();
-      ctx.moveTo(cx - Math.cos(sAngle) * 18, cy - Math.sin(sAngle) * 18);
-      ctx.lineTo(cx + Math.cos(sAngle) * 82, cy + Math.sin(sAngle) * 82);
-      ctx.strokeStyle = '#00e5ff'; ctx.lineWidth = 1;
-      ctx.lineCap = 'round'; ctx.stroke();
-
-      // center dot
-      ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#00e5ff'; ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy, 2, 0, Math.PI * 2);
-      ctx.fillStyle = '#050508'; ctx.fill();
-
-      // GMT/BST label
-      const isDST = now.getTimezoneOffset() < new Date(now.getFullYear(), 0, 1).getTimezoneOffset();
-      document.getElementById('clockTZ').textContent = isDST ? 'BST' : 'GMT';
-
-      requestAnimationFrame(drawClock);
-    }
-    drawClock();
-  })();
+  
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // NEURAL NETWORK ANIMATION
+  (function() {
+    const canvas = document.getElementById('neuralCanvas');
+    if (!canvas) return;
+    canvas.width = 260; canvas.height = 260;
+    const ctx = canvas.getContext('2d');
+    const nodes = [];
+    const layers = [3, 5, 5, 3];
+    const lx = [40, 100, 160, 220];
+    layers.forEach((count, li) => {
+      const spacing = 260 / (count + 1);
+      for (let i = 0; i < count; i++) {
+        nodes.push({ x: lx[li], y: spacing * (i + 1), layer: li, phase: Math.random() * Math.PI * 2, pulse: 0 });
+      }
+    });
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, 260, 260);
+      t += 0.018;
+      // Draw connections
+      const layerNodes = layers.map((_, li) => nodes.filter(n => n.layer === li));
+      for (let li = 0; li < layers.length - 1; li++) {
+        layerNodes[li].forEach(a => {
+          layerNodes[li + 1].forEach(b => {
+            const signal = (Math.sin(t * 2 + a.phase) + 1) / 2;
+            const alpha = 0.08 + signal * 0.25;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(0,229,255,${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+            // Travelling signal dot
+            const progress = (t * 0.6 + a.phase * 0.3) % 1;
+            const dx = b.x - a.x, dy = b.y - a.y;
+            const sx = a.x + dx * progress, sy = a.y + dy * progress;
+            ctx.beginPath();
+            ctx.arc(sx, sy, 1.5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0,229,255,${0.4 + signal * 0.6})`;
+            ctx.fill();
+          });
+        });
+      }
+      // Draw nodes
+      nodes.forEach(n => {
+        const glow = (Math.sin(t * 1.5 + n.phase) + 1) / 2;
+        // Outer glow ring
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 10 + glow * 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,229,255,${0.04 + glow * 0.08})`;
+        ctx.fill();
+        // Node circle
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 5, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 5);
+        grad.addColorStop(0, `rgba(0,229,255,${0.7 + glow * 0.3})`);
+        grad.addColorStop(1, `rgba(0,100,180,${0.3 + glow * 0.2})`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 5, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(0,229,255,${0.4 + glow * 0.6})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
 </script>
 </body></html>
