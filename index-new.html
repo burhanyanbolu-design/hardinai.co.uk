@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardin AI Solutions — AI-Powered Healthcare R&D | Medical Research Technology</title>
+    <meta name="description" content="Hardin AI Solutions develops AI-powered research platforms for neuromuscular diseases. Connecting patients with cutting-edge research through intelligent technology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #0066cc;
+            --teal: #1de9b6;
+            --bg-light: #f0f4f8;
+            --bg-white: #ffffff;
+            --text-dark: #0a1f3c;
+            --text-gray: #4a6a8a;
+            --border: #e0eaf4;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border);
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-text {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-text span {
+            color: var(--teal);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .nav-cta {
+            background: linear-gradient(135deg, var(--teal), var(--primary-dark));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(29, 233, 182, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(180deg, #e8f4ff 0%, #f0f8ff 60%, var(--bg-light) 100%);
+        }
+        
+        .hero-cityscape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 500"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2300d4ff;stop-opacity:0.15"/><stop offset="100%" style="stop-color:%231de9b6;stop-opacity:0.25"/></linearGradient></defs><rect width="1400" height="500" fill="%23e8f4ff"/><rect x="0" y="250" width="1400" height="250" fill="%23d0e8f8"/><g opacity="0.8"><rect x="100" y="150" width="70" height="350" fill="url(%23grad1)" rx="4"/><rect x="190" y="100" width="90" height="400" fill="%230066cc" opacity="0.6" rx="4"/><rect x="300" y="170" width="60" height="330" fill="%231de9b6" opacity="0.4" rx="4"/><rect x="380" y="80" width="110" height="420" fill="%230a4a8a" rx="4"/><rect x="510" y="50" width="130" height="450" fill="%230066cc" rx="6"/><rect x="660" y="30" width="90" height="470" fill="%231de9b6" opacity="0.7" rx="4"/><rect x="770" y="70" width="120" height="430" fill="%230a4a8a" rx="4"/><rect x="910" y="120" width="80" height="380" fill="%230066cc" opacity="0.5" rx="4"/><rect x="1010" y="160" width="65" height="340" fill="%231de9b6" opacity="0.4" rx="4"/><rect x="1095" y="130" width="90" height="370" fill="%230a4a8a" rx="4"/><rect x="1205" y="180" width="70" height="320" fill="%230066cc" opacity="0.6" rx="4"/></g><g opacity="0.6"><circle cx="250" cy="80" r="35" fill="%23fff" opacity="0.7"/><circle cx="500" cy="50" r="25" fill="%23fff" opacity="0.6"/><circle cx="900" cy="70" r="30" fill="%23fff" opacity="0.7"/><circle cx="1150" cy="90" r="22" fill="%23fff" opacity="0.6"/><line x1="250" y1="80" x2="380" y2="80" stroke="%231de9b6" stroke-width="2" stroke-dasharray="5" opacity="0.5"/><line x1="500" y1="50" x2="660" y2="30" stroke="%2300d4ff" stroke-width="2" stroke-dasharray="5" opacity="0.5"/><line x1="900" y1="70" x2="770" y2="70" stroke="%231de9b6" stroke-width="2" stroke-dasharray="5" opacity="0.5"/><circle cx="380" cy="80" r="6" fill="%231de9b6"/><circle cx="660" cy="30" r="6" fill="%2300d4ff"/><circle cx="770" cy="70" r="6" fill="%231de9b6"/></g><g opacity="0.3"><path d="M 0,250 Q 350,230 700,250 T 1400,250" stroke="%2300d4ff" stroke-width="1.5" fill="none"/><path d="M 0,270 Q 350,250 700,270 T 1400,270" stroke="%231de9b6" stroke-width="1.5" fill="none"/></g></svg>');
+            background-size: cover;
+            background-position: bottom center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 200px;
+            width: 100%;
+        }
+        
+        .hero-tag {
+            display: inline-block;
+            background: rgba(29, 233, 182, 0.1);
+            border: 1px solid var(--teal);
+            color: #0a6a4a;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .hero-title {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+        
+        .hero-title .gradient {
+            background: linear-gradient(135deg, var(--primary-dark), var(--teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-gray);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-dark), var(--teal));
+            color: white;
+            padding: 16px 36px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 24px rgba(0, 100, 204, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 100, 204, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-dark);
+            padding: 16px 36px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-dark);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 40px;
+        }
+        
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 0 20px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--teal);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 40px;
+            background: white;
+        }
+        
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-tag {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .service-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            background: white;
+            border-color: var(--teal);
+            box-shadow: 0 12px 32px rgba(29, 233, 182, 0.15);
+            transform: translateY(-4px);
+        }
+        
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(29, 233, 182, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        .service-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+        
+        .service-desc {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        
+        /* LGMD Feature Section */
+        .lgmd-feature {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #e8fff8, #e8f4ff);
+        }
+        
+        .lgmd-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border: 2px solid var(--teal);
+            border-radius: 24px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .lgmd-content h3 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        
+        .lgmd-content p {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        
+        .lgmd-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .lgmd-features li {
+            font-size: 15px;
+            color: var(--text-gray);
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+        }
+        
+        .lgmd-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .lgmd-visual {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(29, 233, 182, 0.05));
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .lgmd-visual-icon {
+            font-size: 120px;
+            margin-bottom: 20px;
+        }
+        
+        .lgmd-visual-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--teal);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #0a1f3c, #0a3a6a);
+            color: white;
+            text-align: center;
+        }
+        
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .about h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+        
+        .about h2 span {
+            color: var(--teal);
+        }
+        
+        .about p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #a0c0e0;
+            margin-bottom: 48px;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .about-stat-num {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--teal);
+            line-height: 1;
+        }
+        
+        .about-stat-label {
+            font-size: 13px;
+            color: #6090b0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 40px;
+            background: white;
+            text-align: center;
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        
+        .contact h2 span {
+            color: var(--teal);
+        }
+        
+        .contact p {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+        }
+        
+        .contact-email {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: inline-block;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--teal);
+            transition: all 0.2s;
+        }
+        
+        .contact-email:hover {
+            color: var(--teal);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background: #0a1f3c;
+            color: white;
+            padding: 40px 40px;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-brand {
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .footer-brand span {
+            color: var(--teal);
+        }
+        
+        .footer-copy {
+            font-size: 13px;
+            color: #6090b0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .hero-content { padding: 0 20px 150px; }
+            .services { padding: 60px 20px; }
+            .lgmd-container {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+                gap: 40px;
+            }
+            .about { padding: 60px 20px; }
+            .contact { padding: 60px 20px; }
+            footer { padding: 30px 20px; }
+            .footer-container { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-text">Hardin <span>AI</span> Solutions</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Solutions</a></li>
+                <li><a href="#lgmd">LGMD Project</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="https://ai.hardinai.co.uk" class="nav-cta">🤖 AI Assistant</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-cityscape"></div>
+        <div class="hero-content">
+            <div class="hero-tag">AI-Powered Medical Research</div>
+            <h1 class="hero-title">
+                Advancing Research.<br>
+                Empowering <span class="gradient">Patients.</span>
+            </h1>
+            <p class="hero-subtitle">
+                We develop AI-powered research platforms for neuromuscular diseases — connecting patients with cutting-edge research, supporting scientists with intelligent data analysis, and accelerating the path to treatments.
+            </p>
+            <div class="hero-buttons">
+                <a href="#lgmd" class="btn-primary">Explore LGMD Project</a>
+                <a href="#contact" class="btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Languages</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Research Monitoring</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Patient-Focused</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Impact Potential</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="section-header">
+                <div class="section-tag">Healthcare R&D Solutions</div>
+                <h2 class="section-title">Our Focus Areas</h2>
+                <p class="section-subtitle">
+                    Specialized AI technology designed to accelerate medical research and improve patient outcomes
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🧬</div>
+                    <h3 class="service-name">Disease Research Platforms</h3>
+                    <p class="service-desc">AI-powered systems that monitor global research 24/7 — tracking breakthroughs in neuromuscular diseases and delivering updates to patients and scientists in real-time.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3 class="service-name">AI Analysis & Intelligence</h3>
+                    <p class="service-desc">Machine learning models that analyze research papers, clinical trials, and scientific data — extracting insights and identifying patterns that accelerate discovery.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3 class="service-name">Patient Support Tools</h3>
+                    <p class="service-desc">Accessible platforms that connect patients with the latest research in their language — empowering families with knowledge and hope through AI voice presenters like ARIA.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔬</div>
+                    <h3 class="service-name">Scientific Research Tools</h3>
+                    <p class="service-desc">Custom software for researchers and clinicians — streamlining data collection, analysis, and collaboration to accelerate the path from lab to treatment.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">♿</div>
+                    <h3 class="service-name">Accessibility Solutions</h3>
+                    <p class="service-desc">Specialized tools for visually impaired patients and those with mobility challenges — ensuring everyone can access critical health information and research updates.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌍</div>
+                    <h3 class="service-name">Global Access & Translation</h3>
+                    <p class="service-desc">Multi-language support across 12+ languages — breaking down barriers so patients worldwide can understand and benefit from the latest medical research.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LGMD Feature Section -->
+    <section class="lgmd-feature" id="lgmd">
+        <div class="lgmd-container">
+            <div class="lgmd-content">
+                <h3>LGMD2B/R2 Research Platform</h3>
+                <p>Our flagship AI agent monitors global dysferlinopathy research 24/7 — delivering updates to patients in 12 languages through ARIA, our AI voice presenter.</p>
+                <ul class="lgmd-features">
+                    <li>Real-time research monitoring across global databases</li>
+                    <li>AI-powered analysis of clinical trials and studies</li>
+                    <li>Multi-language patient updates via ARIA voice presenter</li>
+                    <li>Accessible dashboard for patients and families</li>
+                    <li>Direct connection to latest treatment developments</li>
+                </ul>
+                <a href="https://lgmd.hardinai.co.uk" class="btn-primary">Visit LGMD Platform →</a>
+            </div>
+            <div class="lgmd-visual">
+                <div class="lgmd-visual-icon">🧬</div>
+                <div class="lgmd-visual-label">AI Research Intelligence</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <h2>Transforming Healthcare.<br><span>Empowering Lives.</span></h2>
+            <p>At Hardin AI Solutions, we create specialized AI-powered R&D platforms for the healthcare sector — supporting neuromuscular disease research, building accessible tools for visually impaired patients, and connecting patients with life-changing scientific breakthroughs.</p>
+            <div class="about-stats">
+                <div>
+                    <div class="about-stat-num">12</div>
+                    <div class="about-stat-label">Languages</div>
+                </div>
+                <div>
+                    <div class="about-stat-num">24/7</div>
+                    <div class="about-stat-label">Research Monitoring</div>
+                </div>
+                <div>
+                    <div class="about-stat-num">100%</div>
+                    <div class="about-stat-label">Patient-Focused</div>
+                </div>
+                <div>
+                    <div class="about-stat-num">∞</div>
+                    <div class="about-stat-label">Impact Potential</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Ready to <span>Collaborate?</span></h2>
+            <p>Whether you're a patient, researcher, or healthcare organization — we'd love to hear from you.</p>
+            <a href="mailto:info@hardinai.co.uk" class="contact-email">info@hardinai.co.uk</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">Hardin <span>AI</span> Solutions</div>
+            <div class="footer-copy">© 2026 Hardin Enterprises Ltd · Company No. 17149514 · Registered in England & Wales</div>
+        </div>
+    </footer>
+</body>
+</html>
