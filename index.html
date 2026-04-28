@@ -227,8 +227,21 @@
   </ul>
   <a href="https://ai.hardinai.co.uk" target="_blank" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#7c3aed,#4f8ef7);">🤖 AI Assistant</a>
   <div id="google_translate_element" style="margin-right:1rem;"></div>
+  <a href="javascript:void(0)" onclick="resetToEnglish()" class="nav-cta" style="margin-right:0.5rem;background:rgba(255,60,95,0.8);font-size:0.65rem;padding:0.5rem 1rem;" title="Reset to English">🇬🇧 EN</a>
   <a href="#contact" class="nav-cta">Get Started</a>
 </nav>
+
+<script>
+function resetToEnglish() {
+  // Clear Google Translate cookies
+  document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + window.location.hostname;
+  
+  // Reload page without hash
+  var url = window.location.href.split('#')[0];
+  window.location.href = url;
+}
+</script>
 
 <!-- Google Translate Script -->
 <script type="text/javascript">
