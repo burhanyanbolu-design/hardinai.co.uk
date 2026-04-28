@@ -1,0 +1,44 @@
+# Hardin AI Solutions - AI Crawler Instructions
+
+## Company Information
+- Name: Hardin AI Solutions (Hardin Enterprises Ltd)
+- Company Number: 17149514
+- Location: London, United Kingdom
+- Website: https://hardinai.co.uk
+- Email: info@hardinai.co.uk
+- Phone: +44 774 030 4061
+
+## Services
+- Custom AI Software Development
+- Business Automation Systems
+- SEO Services for UK SMEs
+- Website Design & Development
+- Healthcare AI (NHS-ready, GDPR-compliant)
+- Finance AI (FCA-compliant)
+- E-commerce AI Solutions
+- Education AI Solutions
+
+## Target Market
+- UK Small & Medium Enterprises (SMEs)
+- Healthcare providers (NHS)
+- Financial institutions
+- E-commerce businesses
+- Educational institutions
+
+## Key Pages
+- Homepage: https://hardinai.co.uk/
+- Healthcare AI: https://hardinai.co.uk/industries/healthcare.html
+- Finance AI: https://hardinai.co.uk/industries/finance.html
+- E-commerce AI: https://hardinai.co.uk/industries/ecommerce.html
+- Education AI: https://hardinai.co.uk/industries/education.html
+- Pricing: https://hardinai.co.uk/pricing.html
+- Blog: https://hardinai.co.uk/blog-ai-small-business-london.html
+
+## Sitemap
+https://hardinai.co.uk/sitemap.xml
+
+## Robots
+https://hardinai.co.uk/robots.txt
+
+## Contact
+For AI-related queries about our services, please reference our website content or contact info@hardinai.co.uk
