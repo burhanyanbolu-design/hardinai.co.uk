@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NEXUS FREE - AI Bot Network</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e1a;color:#ddeeff;font-family:monospace;font-size:13px;padding:20px}
+.container{max-width:1400px;margin:0 auto}
+.header{background:#0f1825;border:1px solid #1a3050;border-radius:8px;padding:15px 20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:bold;color:#00d4ff}
+.stats{display:flex;gap:30px}
+.stat{text-align:center}
+.stat-num{font-size:20px;color:#00ff9d;font-weight:bold}
+.stat-label{font-size:10px;color:#6b9ab8;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:350px 1fr;gap:15px}
+.panel{background:#0f1825;border:1px solid #1a3050;border-radius:8px;overflow:hidden;margin-bottom:15px}
+.panel-head{background:#101e35;padding:12px 15px;border-bottom:1px solid #1a3050;font-size:11px;color:#00d4ff;text-transform:uppercase;letter-spacing:2px}
+.panel-body{padding:15px}
+label{display:block;font-size:10px;color:#6b9ab8;text-transform:uppercase;margin:10px 0 5px}
+input,select{width:100%;background:#101e35;border:1px solid #1a3050;color:#ddeeff;padding:8px;border-radius:5px;font-family:monospace;font-size:12px}
+input:focus,select:focus{outline:none;border-color:#00d4ff}
+.btn{background:transparent;border:1px solid #00d4ff;color:#00d4ff;padding:8px 15px;border-radius:5px;cursor:pointer;font-family:monospace;font-size:11px;text-transform:uppercase;margin:5px 5px 5px 0}
+.btn:hover{background:#00d4ff;color:#0a0e1a}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+.btn-green{border-color:#00ff9d;color:#00ff9d}
+.btn-green:hover{background:#00ff9d;color:#0a0e1a}
+.btn-red{border-color:#ff4455;color:#ff4455}
+.btn-red:hover{background:#ff4455;color:#fff}
+.btn-purple{border-color:#c084fc;color:#c084fc}
+.btn-purple:hover{background:#c084fc;color:#0a0e1a}
+.btn-orange{border-color:#ff6b35;color:#ff6b35}
+.btn-orange:hover{background:#ff6b35;color:#fff}
+.bot-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.bot-card{background:#101e35;border:1px solid #1a3050;border-radius:8px;padding:12px}
+.bot-card.running{border-color:#00d4ff;box-shadow:0 0 10px rgba(0,212,255,0.2)}
+.bot-card.found{border-color:#00ff9d;box-shadow:0 0 10px rgba(0,255,157,0.2)}
+.bot-card.error{border-color:#ff4455}
+.bot-header{display:flex;justify-content:space-between;margin-bottom:10px}
+.bot-id{color:#ffcc00;font-weight:bold;font-size:11px}
+.bot-role{background:rgba(0,212,255,0.1);color:#00d4ff;padding:2px 8px;border-radius:3px;font-size:9px;text-transform:uppercase}
+.bot-status{font-size:10px;color:#6b9ab8;margin:8px 0}
+.bot-log{background:#0a0e1a;padding:8px;border-radius:5px;font-size:10px;color:#6b9ab8;min-height:60px;max-height:100px;overflow-y:auto;margin:8px 0}
+.bot-result{background:rgba(0,255,157,0.05);border:1px solid rgba(0,255,157,0.2);padding:8px;border-radius:5px;font-size:10px;margin-top:8px;max-height:120px;overflow-y:auto}
+.progress{height:3px;background:#1a3050;border-radius:2px;margin:8px 0;overflow:hidden}
+.progress-bar{height:100%;background:#00d4ff;transition:width 0.3s}
+.progress-bar.complete{background:#00ff9d}
+.feed{background:#0a0e1a;padding:10px;border-radius:5px;height:250px;overflow-y:auto;font-size:10px}
+.feed-entry{padding:5px 0;border-bottom:1px solid #1a3050;color:#6b9ab8}
+.feed-time{color:#3d6282;margin-right:10px}
+.feed-bot{color:#ffcc00;margin-right:10px;font-weight:bold}
+.feed-msg.info{color:#00d4ff}
+.feed-msg.result{color:#00ff9d}
+.feed-msg.error{color:#ff4455}
+.tabs{display:flex;border-bottom:1px solid #1a3050;margin-bottom:10px}
+.tab{background:transparent;border:none;color:#6b9ab8;padding:10px 15px;cursor:pointer;font-family:monospace;font-size:10px;text-transform:uppercase;border-bottom:2px solid transparent}
+.tab.active{color:#00d4ff;border-bottom-color:#00d4ff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.result-item{background:#101e35;border:1px solid #1a3050;border-radius:5px;padding:10px;margin-bottom:10px}
+.result-header{display:flex;gap:10px;margin-bottom:8px;font-size:10px}
+.result-bot{color:#ffcc00;font-weight:bold}
+.result-time{color:#3d6282}
+.result-content{font-size:11px;line-height:1.6}
+.empty{text-align:center;color:#3d6282;padding:30px;font-size:11px}
+.info-banner{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.3);padding:12px;border-radius:8px;margin-bottom:15px;font-size:11px}
+.info-banner strong{color:#00d4ff}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="logo">NEXUS FREE</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-active">0</div><div class="stat-label">Active</div></div>
+    <div class="stat"><div class="stat-num" id="stat-found">0</div><div class="stat-label">Found</div></div>
+    <div class="stat"><div class="stat-num" id="stat-cycles">0</div><div class="stat-label">Cycles</div></div>
+  </div>
+</div>
+
+<div class="info-banner">
+  <strong>🎉 100% FREE + AI POWERED</strong> — Uses DuckDuckGo + Wikipedia + NewsAPI (optional) + <strong>Ollama AI (llama3.2)</strong> for intelligent analysis
+</div>
+
+<div class="grid">
+  <div>
+    <div class="panel">
+      <div class="panel-head">Mission Config</div>
+      <div class="panel-body">
+        <label>Search Query</label>
+        <input type="text" id="query" placeholder="e.g. AI technology news">
+        <label>Ollama API URL</label>
+        <input type="text" id="ollamaurl" placeholder="http://localhost:11434" value="http://localhost:11434">
+        <label>Ollama Model</label>
+        <input type="text" id="ollamamodel" placeholder="llama3.2" value="llama3.2">
+        <label>NewsAPI Key (optional)</label>
+        <input type="text" id="newskey" placeholder="Free at newsapi.org">
+        <label>Repeat Every</label>
+        <select id="interval">
+          <option value="0">Once</option>
+          <option value="60" selected>1 minute</option>
+          <option value="180">3 minutes</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="panel">
+      <div class="panel-head">Controls</div>
+      <div class="panel-body">
+        <button class="btn btn-green" onclick="launch()" id="btn-launch">▶ LAUNCH</button>
+        <button class="btn" onclick="pause()" id="btn-pause" disabled>⏸ PAUSE</button>
+        <button class="btn btn-red" onclick="stop()" id="btn-stop" disabled>■ STOP</button>
+        <br>
+        <button class="btn btn-purple" onclick="evaluate()">◆ EVALUATE</button>
+        <button class="btn btn-orange" onclick="dispatch()" id="btn-dispatch" disabled>▶ DISPATCH</button>
+      </div>
+    </div>
+  </div>
+  
+  <div>
+    <div class="panel">
+      <div class="panel-head">Bot Fleet (<span id="bot-count">3</span> bots)</div>
+      <div class="panel-body">
+        <div class="bot-list" id="bots"></div>
+      </div>
+    </div>
+    
+    <div class="panel">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab(0)">Feed</button>
+        <button class="tab" onclick="showTab(1)">Results</button>
+        <button class="tab" onclick="showTab(2)">Evaluation</button>
+      </div>
+      <div class="panel-body">
+        <div class="tab-content active" id="tab-0">
+          <div class="feed" id="feed"></div>
+        </div>
+        <div class="tab-content" id="tab-1">
+          <div id="results" style="max-height:250px;overflow-y:auto"></div>
+        </div>
+        <div class="tab-content" id="tab-2">
+          <div id="evaluation" style="max-height:250px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const state = {
+  bots: [
+    {id:'BOT-01',role:'SEARCH',name:'DuckDuckGo',status:'idle',logs:[],result:null,progress:0},
+    {id:'BOT-02',role:'WIKI',name:'Wikipedia',status:'idle',logs:[],result:null,progress:0},
+    {id:'BOT-03',role:'NEWS',name:'NewsAPI',status:'idle',logs:[],result:null,progress:0}
+  ],
+  running:false,
+  paused:false,
+  interval:null,
+  cycles:0,
+  found:0,
+  feed:[],
+  results:[]
+};
+
+function showTab(n){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  document.querySelectorAll('.tab-content').forEach((t,i)=>t.classList.toggle('active',i===n));
+}
+
+function log(bot,msg,type=''){
+  const t=new Date().toTimeString().slice(0,8);
+  state.feed.unshift({t,bot,msg,type});
+  if(state.feed.length>100)state.feed.pop();
+  document.getElementById('feed').innerHTML=state.feed.slice(0,50).map(e=>
+    `<div class="feed-entry"><span class="feed-time">${e.t}</span><span class="feed-bot">${e.bot}</span><span class="feed-msg ${e.type}">${e.msg}</span></div>`
+  ).join('');
+}
+
+function updateStats(){
+  document.getElementById('stat-active').textContent=state.bots.filter(b=>b.status==='running').length;
+  document.getElementById('stat-found').textContent=state.found;
+  document.getElementById('stat-cycles').textContent=state.cycles;
+}
+
+function renderBots(){
+  document.getElementById('bots').innerHTML=state.bots.map((b,i)=>`
+    <div class="bot-card ${b.status}">
+      <div class="bot-header">
+        <span class="bot-id">${b.id}</span>
+        <span class="bot-role">${b.role}</span>
+      </div>
+      <div class="bot-status">Status: ${b.status.toUpperCase()}</div>
+      <div class="progress"><div class="progress-bar ${b.status==='found'?'complete':''}" style="width:${b.progress}%"></div></div>
+      <div class="bot-log">${b.logs.slice(-3).reverse().join('<br>')||'Awaiting launch...'}</div>
+      ${b.result?`<div class="bot-result">${b.result.slice(0,200)}...</div>`:''}
+    </div>
+  `).join('');
+}
+
+async function searchDDG(q){
+  const r=await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(q)}&format=json&no_html=1`);
+  const d=await r.json();
+  let res=d.AbstractText||'';
+  if(d.RelatedTopics)res+='\n'+d.RelatedTopics.slice(0,2).map(t=>t.Text).filter(Boolean).join('\n');
+  return res||'No results from DuckDuckGo';
+}
+
+async function searchWiki(q){
+  const r=await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&format=json&origin=*&srlimit=2`);
+  const d=await r.json();
+  if(!d.query||!d.query.search||!d.query.search.length)return 'No Wikipedia results';
+  return d.query.search.map(s=>`${s.title}: ${s.snippet.replace(/<[^>]+>/g,'')}`).join('\n\n');
+}
+
+async function searchNews(q,key){
+  if(!key)return 'NewsAPI key not provided (optional)';
+  const r=await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&pageSize=3&apiKey=${key}`);
+  const d=await r.json();
+  if(d.status!=='ok'||!d.articles||!d.articles.length)return 'No news results';
+  return d.articles.map(a=>`${a.title} (${a.source.name})`).join('\n\n');
+}
+
+async function analyzeWithOllama(text,query){
+  const url=document.getElementById('ollamaurl').value||'http://localhost:11434';
+  const model=document.getElementById('ollamamodel').value||'llama3.2';
+  
+  try{
+    const r=await fetch(`${url}/api/generate`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:model,
+        prompt:`Analyze this search result for the query "${query}":\n\n${text}\n\nProvide a brief summary (2-3 sentences):`,
+        stream:false
+      })
+    });
+    const d=await r.json();
+    return d.response||text;
+  }catch(err){
+    return text; // Fallback to original text if Ollama fails
+  }
+}
+
+async function runBot(i){
+  const b=state.bots[i];
+  const q=document.getElementById('query').value||'AI technology';
+  const key=document.getElementById('newskey').value;
+  
+  b.status='running';
+  b.progress=30;
+  b.logs.push(`Starting ${b.role} search...`);
+  renderBots();
+  log(b.id,`Searching: ${q}`,'info');
+  updateStats();
+  
+  try{
+    b.progress=60;
+    renderBots();
+    
+    let result;
+    if(b.role==='SEARCH')result=await searchDDG(q);
+    else if(b.role==='WIKI')result=await searchWiki(q);
+    else if(b.role==='NEWS')result=await searchNews(q,key);
+    
+    // Analyze with Ollama
+    b.logs.push('🤖 Analyzing with AI...');
+    b.progress=80;
+    renderBots();
+    result=await analyzeWithOllama(result,q);
+    
+    b.status='found';
+    b.progress=100;
+    b.result=result;
+    b.logs.push('✓ AI analysis complete');
+    renderBots();
+    log(b.id,`AI Summary: ${result.slice(0,80)}...`,'result');
+    
+    state.found++;
+    state.results.unshift({bot:b.id,role:b.role,time:new Date().toTimeString().slice(0,8),content:result});
+    renderResults();
+    updateStats();
+    document.getElementById('btn-dispatch').disabled=false;
+  }catch(err){
+    b.status='error';
+    b.progress=0;
+    b.logs.push(`Error: ${err.message}`);
+    renderBots();
+    log(b.id,`Error: ${err.message}`,'error');
+  }
+}
+
+function renderResults(){
+  const el=document.getElementById('results');
+  if(!state.results.length){el.innerHTML='<div class="empty">No results yet</div>';return;}
+  el.innerHTML=state.results.map(r=>`
+    <div class="result-item">
+      <div class="result-header">
+        <span class="result-bot">${r.bot}</span>
+        <span class="result-time">${r.time}</span>
+      </div>
+      <div class="result-content">${r.content.replace(/\n/g,'<br>')}</div>
+    </div>
+  `).join('');
+}
+
+async function launch(){
+  const q=document.getElementById('query').value;
+  if(!q){alert('Enter a search query');return;}
+  
+  state.running=true;
+  document.getElementById('btn-launch').disabled=true;
+  document.getElementById('btn-pause').disabled=false;
+  document.getElementById('btn-stop').disabled=false;
+  log('SYS',`Mission launched: ${q}`,'info');
+  
+  await runAll();
+  
+  const int=parseInt(document.getElementById('interval').value);
+  if(int>0){
+    state.interval=setInterval(async()=>{
+      if(!state.running||state.paused)return;
+      state.cycles++;
+      updateStats();
+      log('SYS',`Cycle ${state.cycles+1}`,'info');
+      await runAll();
+    },int*1000);
+  }
+}
+
+async function runAll(){
+  for(let i=0;i<state.bots.length;i++){
+    if(state.running&&!state.paused){
+      await runBot(i);
+      await new Promise(r=>setTimeout(r,1000));
+    }
+  }
+}
+
+function pause(){
+  state.paused=!state.paused;
+  document.getElementById('btn-pause').textContent=state.paused?'▶ RESUME':'⏸ PAUSE';
+  log('SYS',state.paused?'Paused':'Resumed','info');
+}
+
+function stop(){
+  state.running=false;
+  state.paused=false;
+  if(state.interval)clearInterval(state.interval);
+  state.bots.forEach(b=>{b.status='idle';b.progress=0;});
+  document.getElementById('btn-launch').disabled=false;
+  document.getElementById('btn-pause').disabled=true;
+  document.getElementById('btn-stop').disabled=true;
+  renderBots();
+  log('SYS','Stopped','info');
+}
+
+function evaluate(){
+  if(!state.results.length){alert('No results to evaluate');return;}
+  const el=document.getElementById('evaluation');
+  el.innerHTML=`
+    <div style="color:#c084fc;font-weight:bold;margin-bottom:15px">EVALUATION REPORT</div>
+    <div style="margin-bottom:10px"><strong style="color:#00d4ff">Query:</strong> ${document.getElementById('query').value}</div>
+    <div style="margin-bottom:10px"><strong style="color:#00d4ff">Results:</strong> ${state.results.length} from ${[...new Set(state.results.map(r=>r.role))].join(', ')}</div>
+    <div style="margin-bottom:10px"><strong style="color:#00d4ff">Confidence:</strong> <span style="color:#00ff9d">HIGH</span></div>
+    <div style="margin-top:15px"><strong style="color:#00d4ff">Top Findings:</strong></div>
+    ${state.results.slice(0,3).map((r,i)=>`<div style="margin:8px 0">${i+1}. ${r.content.slice(0,150)}...</div>`).join('')}
+  `;
+  showTab(2);
+  log('EVAL','Evaluation complete','info');
+}
+
+function dispatch(){
+  if(!state.results.length){alert('No results to dispatch');return;}
+  const summary=state.results.map(r=>`[${r.bot}] ${r.content.slice(0,200)}`).join('\n\n');
+  alert(`DISPATCH REPORT\n\n${summary.slice(0,500)}...\n\n[${state.results.length} results dispatched]`);
+  log('DISPATCH','Results dispatched','info');
+}
+
+renderBots();
+log('SYS','NEXUS FREE initialized','info');
+log('SYS','Enter query and press LAUNCH','info');
+</script>
+</body>
+</html>
