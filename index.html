@@ -226,7 +226,17 @@
     <li><a href="/blog-ai-small-business-london.html">Blog</a></li>
   </ul>
   <a href="https://ai.hardinai.co.uk" target="_blank" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#7c3aed,#4f8ef7);">🤖 AI Assistant</a>
-  <div id="google_translate_element" style="margin-right:1rem;"></div>
+  
+  <!-- Language Flags -->
+  <div class="language-flags" style="display:flex;gap:0.5rem;margin-right:1rem;align-items:center;">
+    <a href="#" onclick="translatePage('en'); return false;" title="English" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇬🇧</a>
+    <a href="#" onclick="translatePage('de'); return false;" title="Deutsch" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇩🇪</a>
+    <a href="#" onclick="translatePage('fr'); return false;" title="Français" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇫🇷</a>
+    <a href="#" onclick="translatePage('es'); return false;" title="Español" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇪🇸</a>
+    <a href="#" onclick="translatePage('tr'); return false;" title="Türkçe" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇹🇷</a>
+    <a href="#" onclick="translatePage('ar'); return false;" title="العربية" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇸🇦</a>
+  </div>
+  
   <a href="#contact" class="nav-cta">Get Started</a>
 </nav>
 
@@ -240,53 +250,29 @@ function googleTranslateElementInit() {
     autoDisplay: false
   }, 'google_translate_element');
 }
+
+// Function to trigger translation by language code
+function translatePage(lang) {
+  var selectField = document.querySelector("select.goog-te-combo");
+  if (selectField) {
+    selectField.value = lang;
+    selectField.dispatchEvent(new Event('change'));
+  } else {
+    // If Google Translate not loaded yet, wait and try again
+    setTimeout(function() {
+      var selectField = document.querySelector("select.goog-te-combo");
+      if (selectField) {
+        selectField.value = lang;
+        selectField.dispatchEvent(new Event('change'));
+      }
+    }, 1000);
+  }
+}
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- Hidden Google Translate Element -->
+<div id="google_translate_element" style="display:none;"></div>
 <style>
-/* Style the Google Translate widget */
-#google_translate_element {
-  display: inline-block;
-}
-.goog-te-gadget {
-  font-family: 'Space Mono', monospace !important;
-  font-size: 0.7rem !important;
-  color: #f2f0ea !important;
-}
-.goog-te-gadget-simple {
-  background-color: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(0,229,255,0.3) !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 0 !important;
-  font-family: 'Space Mono', monospace !important;
-  font-size: 0.7rem !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-}
-.goog-te-gadget-simple:hover {
-  border-color: #00e5ff !important;
-  background-color: rgba(0,229,255,0.1) !important;
-}
-.goog-te-gadget-icon {
-  display: none !important;
-}
-.goog-te-menu-value {
-  color: #f2f0ea !important;
-}
-.goog-te-menu-value span {
-  color: #f2f0ea !important;
-}
-.goog-te-menu-value span:first-child {
-  color: #f2f0ea !important;
-}
-.goog-te-menu-value:hover span {
-  color: #00e5ff !important;
-}
-/* Style the dropdown arrow */
-.goog-te-gadget-simple .goog-te-menu-value span:last-child {
-  border-left: 1px solid rgba(255,255,255,0.2) !important;
-  padding-left: 0.5rem !important;
-  margin-left: 0.5rem !important;
-}
 /* Hide Google Translate banner */
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
@@ -294,16 +280,11 @@ function googleTranslateElementInit() {
 body {
   top: 0 !important;
 }
-/* Fix dropdown menu colors */
-.goog-te-menu2 {
-  background-color: #111118 !important;
-  border: 1px solid rgba(0,229,255,0.3) !important;
-}
-.goog-te-menu2-item div, .goog-te-menu2-item:link div, .goog-te-menu2-item:visited div, .goog-te-menu2-item:active div {
-  color: #f2f0ea !important;
-}
-.goog-te-menu2-item:hover {
-  background-color: rgba(0,229,255,0.1) !important;
+/* Mobile responsive flags */
+@media (max-width: 768px) {
+  .language-flags {
+    display: none !important;
+  }
 }
 </style>
 
