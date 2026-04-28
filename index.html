@@ -226,17 +226,7 @@
     <li><a href="/blog-ai-small-business-london.html">Blog</a></li>
   </ul>
   <a href="https://ai.hardinai.co.uk" target="_blank" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#7c3aed,#4f8ef7);">🤖 AI Assistant</a>
-  
-  <!-- Language Flags -->
-  <div class="language-flags" style="display:flex;gap:0.5rem;margin-right:1rem;align-items:center;">
-    <a href="#" onclick="translatePage('en'); return false;" title="English" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇬🇧</a>
-    <a href="#" onclick="translatePage('de'); return false;" title="Deutsch" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇩🇪</a>
-    <a href="#" onclick="translatePage('fr'); return false;" title="Français" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇫🇷</a>
-    <a href="#" onclick="translatePage('es'); return false;" title="Español" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇪🇸</a>
-    <a href="#" onclick="translatePage('tr'); return false;" title="Türkçe" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇹🇷</a>
-    <a href="#" onclick="translatePage('ar'); return false;" title="العربية" style="font-size:1.5rem;text-decoration:none;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">🇸🇦</a>
-  </div>
-  
+  <div id="google_translate_element" style="margin-right:1rem;"></div>
   <a href="#contact" class="nav-cta">Get Started</a>
 </nav>
 
@@ -250,43 +240,53 @@ function googleTranslateElementInit() {
     autoDisplay: false
   }, 'google_translate_element');
 }
-
-// Function to trigger translation by language code
-function translatePage(lang) {
-  if (lang === 'en') {
-    // Reset to English
-    window.location.href = window.location.pathname + window.location.search;
-    return;
-  }
-  
-  // Try to find and trigger the select element
-  var attempts = 0;
-  var maxAttempts = 20;
-  
-  var checkAndTranslate = setInterval(function() {
-    var selectField = document.querySelector("select.goog-te-combo");
-    if (selectField) {
-      selectField.value = lang;
-      selectField.dispatchEvent(new Event('change'));
-      clearInterval(checkAndTranslate);
-    }
-    attempts++;
-    if (attempts >= maxAttempts) {
-      clearInterval(checkAndTranslate);
-      console.log('Google Translate not ready yet. Please try again.');
-    }
-  }, 100);
-}
-
-// Make sure Google Translate is loaded
-window.addEventListener('load', function() {
-  setTimeout(googleTranslateElementInit, 500);
-});
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<!-- Hidden Google Translate Element -->
-<div id="google_translate_element" style="display:none;"></div>
 <style>
+/* Style the Google Translate widget - BRIGHT COLORS */
+#google_translate_element {
+  display: inline-block;
+}
+.goog-te-gadget {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.75rem !important;
+}
+.goog-te-gadget-simple {
+  background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(0,180,255,0.3)) !important;
+  border: 2px solid #00e5ff !important;
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 4px !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  transition: all 0.3s ease !important;
+}
+.goog-te-gadget-simple:hover {
+  background: linear-gradient(135deg, rgba(0,229,255,0.4), rgba(0,180,255,0.5)) !important;
+  border-color: #00ffff !important;
+  box-shadow: 0 0 15px rgba(0,229,255,0.5) !important;
+}
+.goog-te-gadget-icon {
+  display: none !important;
+}
+.goog-te-menu-value {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+.goog-te-menu-value span {
+  color: #ffffff !important;
+}
+.goog-te-menu-value span:first-child {
+  color: #ffffff !important;
+}
+/* Style the dropdown arrow */
+.goog-te-gadget-simple .goog-te-menu-value span:last-child {
+  border-left: 2px solid rgba(255,255,255,0.5) !important;
+  padding-left: 0.7rem !important;
+  margin-left: 0.7rem !important;
+  color: #00e5ff !important;
+}
 /* Hide Google Translate banner */
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
@@ -294,11 +294,28 @@ window.addEventListener('load', function() {
 body {
   top: 0 !important;
 }
-/* Mobile responsive flags */
-@media (max-width: 768px) {
-  .language-flags {
-    display: none !important;
-  }
+/* Fix dropdown menu colors - BRIGHT */
+.goog-te-menu2 {
+  background-color: #1a1a2e !important;
+  border: 2px solid #00e5ff !important;
+  box-shadow: 0 8px 32px rgba(0,229,255,0.3) !important;
+  max-height: 400px !important;
+  overflow-y: auto !important;
+}
+.goog-te-menu2-item div, 
+.goog-te-menu2-item:link div, 
+.goog-te-menu2-item:visited div, 
+.goog-te-menu2-item:active div {
+  color: #ffffff !important;
+  padding: 8px 16px !important;
+  font-size: 0.9rem !important;
+}
+.goog-te-menu2-item:hover {
+  background: linear-gradient(90deg, rgba(0,229,255,0.3), rgba(0,180,255,0.2)) !important;
+}
+.goog-te-menu2-item-selected {
+  background: rgba(0,229,255,0.2) !important;
+  color: #00e5ff !important;
 }
 </style>
 
