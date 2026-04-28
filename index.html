@@ -1027,7 +1027,7 @@ async function sendMessage(quickMessage = null) {
         messages: [
           {
             role: 'system',
-            content: `You are an AI assistant for Hardin AI Solutions (hardinai.co.uk), a UK-based AI software company. Company: Hardin Enterprises Ltd (Company No. 17149514), Location: London, UK. Services: Healthcare AI (patient chatbots, NHS integration, GDPR-compliant), Finance AI (algorithmic trading, fraud detection, FCA-compliant), E-commerce AI (product recommendations, inventory management), Education AI (AI tutoring, LMS, student analytics). Email: info@hardinai.co.uk, WhatsApp: +44 790 1756 001. Be helpful, professional, and encourage visitors to contact the sales team.`
+            content: `You are an AI assistant for Hardin AI Solutions (hardinai.co.uk), a UK-based AI software company. Company: Hardin Enterprises Ltd (Company No. 17149514), Location: London, UK. Services: Healthcare AI (patient chatbots, NHS integration, GDPR-compliant), Finance AI (algorithmic trading, fraud detection, FCA-compliant), E-commerce AI (product recommendations, inventory management), Education AI (AI tutoring, LMS, student analytics). Email: info@hardinai.co.uk, WhatsApp: +44 774 030 4061. Be helpful, professional, and encourage visitors to contact the sales team.`
           },
           {
             role: 'user',
@@ -1044,7 +1044,7 @@ async function sendMessage(quickMessage = null) {
     if (data.choices && data.choices[0]) {
       addMessage(data.choices[0].message.content, false);
     } else {
-      addMessage('Sorry, I encountered an error. Please contact us at info@hardinai.co.uk or WhatsApp +44 790 1756 001', false);
+      addMessage('Sorry, I encountered an error. Please contact us at info@hardinai.co.uk or WhatsApp +44 774 030 4061', false);
     }
   } catch (error) {
     const messages = document.getElementById('chat-messages');
@@ -1054,10 +1054,10 @@ async function sendMessage(quickMessage = null) {
       'finance': 'Our finance AI solutions include algorithmic trading, fraud detection, and banking chatbots. All FCA-compliant. Visit /industries/finance.html or contact info@hardinai.co.uk',
       'ecommerce': 'We provide e-commerce AI including product recommendations, inventory management, and conversion optimization. Visit /industries/ecommerce.html or contact info@hardinai.co.uk',
       'education': 'Our education AI includes AI tutoring, learning management systems, and student analytics. Visit /industries/education.html or contact info@hardinai.co.uk',
-      'pricing': 'Pricing varies by project scope. Contact our sales team at info@hardinai.co.uk or WhatsApp +44 790 1756 001 for a custom quote.',
-      'contact': 'You can reach us at info@hardinai.co.uk or WhatsApp +44 790 1756 001. We are based in London, UK.'
+      'pricing': 'Pricing varies by project scope. Contact our sales team at info@hardinai.co.uk or WhatsApp +44 774 030 4061 for a custom quote.',
+      'contact': 'You can reach us at info@hardinai.co.uk or WhatsApp +44 774 030 4061. We are based in London, UK.'
     };
-    let response = 'I can help you with Healthcare AI, Finance AI, E-commerce AI, or Education AI solutions. Contact us at info@hardinai.co.uk or WhatsApp +44 790 1756 001';
+    let response = 'I can help you with Healthcare AI, Finance AI, E-commerce AI, or Education AI solutions. Contact us at info@hardinai.co.uk or WhatsApp +44 774 030 4061';
     const lowerMessage = message.toLowerCase();
     for (const [key, value] of Object.entries(fallbackResponses)) {
       if (lowerMessage.includes(key)) {
