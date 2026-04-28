@@ -1,0 +1,13 @@
+opencv-python
+pyserial
+flask
+flask-socketio
+numpy
+Pillow
+ultralytics
+qrcode[pil]
+pyopenssl
+# RF-DETR dependencies
+transformers>=4.50.0
+torch>=2.0.0
+torchvision
