@@ -226,8 +226,62 @@
     <li><a href="/blog-ai-small-business-london.html">Blog</a></li>
   </ul>
   <a href="https://ai.hardinai.co.uk" target="_blank" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#7c3aed,#4f8ef7);">🤖 AI Assistant</a>
+  <div id="google_translate_element" style="margin-right:1rem;"></div>
   <a href="#contact" class="nav-cta">Get Started</a>
 </nav>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'de,fr,es,it,nl,pl,tr,ar,zh-CN',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<style>
+/* Style the Google Translate widget */
+#google_translate_element {
+  display: inline-block;
+}
+.goog-te-gadget {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.7rem !important;
+  color: var(--white) !important;
+}
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0 !important;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+.goog-te-gadget-simple:hover {
+  border-color: var(--accent) !important;
+}
+.goog-te-gadget-icon {
+  display: none !important;
+}
+.goog-te-menu-value span {
+  color: var(--white) !important;
+}
+.goog-te-menu-value span:hover {
+  color: var(--accent) !important;
+}
+/* Hide Google Translate banner */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+</style>
 
 <!-- HERO -->
 <section class="hero">
