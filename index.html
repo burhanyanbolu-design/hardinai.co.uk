@@ -250,11 +250,11 @@ function googleTranslateElementInit() {
 .goog-te-gadget {
   font-family: 'Space Mono', monospace !important;
   font-size: 0.7rem !important;
-  color: var(--white) !important;
+  color: #f2f0ea !important;
 }
 .goog-te-gadget-simple {
-  background-color: transparent !important;
-  border: 1px solid rgba(255,255,255,0.2) !important;
+  background-color: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(0,229,255,0.3) !important;
   padding: 0.5rem 1rem !important;
   border-radius: 0 !important;
   font-family: 'Space Mono', monospace !important;
@@ -263,16 +263,29 @@ function googleTranslateElementInit() {
   text-transform: uppercase !important;
 }
 .goog-te-gadget-simple:hover {
-  border-color: var(--accent) !important;
+  border-color: #00e5ff !important;
+  background-color: rgba(0,229,255,0.1) !important;
 }
 .goog-te-gadget-icon {
   display: none !important;
 }
-.goog-te-menu-value span {
-  color: var(--white) !important;
+.goog-te-menu-value {
+  color: #f2f0ea !important;
 }
-.goog-te-menu-value span:hover {
-  color: var(--accent) !important;
+.goog-te-menu-value span {
+  color: #f2f0ea !important;
+}
+.goog-te-menu-value span:first-child {
+  color: #f2f0ea !important;
+}
+.goog-te-menu-value:hover span {
+  color: #00e5ff !important;
+}
+/* Style the dropdown arrow */
+.goog-te-gadget-simple .goog-te-menu-value span:last-child {
+  border-left: 1px solid rgba(255,255,255,0.2) !important;
+  padding-left: 0.5rem !important;
+  margin-left: 0.5rem !important;
 }
 /* Hide Google Translate banner */
 .goog-te-banner-frame.skiptranslate {
@@ -280,6 +293,17 @@ function googleTranslateElementInit() {
 }
 body {
   top: 0 !important;
+}
+/* Fix dropdown menu colors */
+.goog-te-menu2 {
+  background-color: #111118 !important;
+  border: 1px solid rgba(0,229,255,0.3) !important;
+}
+.goog-te-menu2-item div, .goog-te-menu2-item:link div, .goog-te-menu2-item:visited div, .goog-te-menu2-item:active div {
+  color: #f2f0ea !important;
+}
+.goog-te-menu2-item:hover {
+  background-color: rgba(0,229,255,0.1) !important;
 }
 </style>
 
