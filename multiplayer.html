@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://hardinai.co.uk/multiplayer.html">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root { --black: #050508; --white: #f2f0ea; --accent: #00e5ff; --accent2: #ff3c5f; --mid: #111118; --text-dim: #6a6a7a; --alice: #00e5ff; --bob: #ff3c5f; --agent: #7fe0a0; }
+:root { --black: #050508; --white: #f2f0ea; --accent: #00e5ff; --accent2: #ff3c5f; --mid: #111118; --text-dim: #6a6a7a; --alice: #00e5ff; --bob: #ff3c5f; --agent: #7fe0a0; --gold: #ffce54; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; overflow-x: hidden; }
@@ -126,6 +126,18 @@ h1 .line-dim { color: rgba(242,240,234,0.28); display: block; }
 
 .demoNote { font-family: 'Space Mono', monospace; font-size: 0.62rem; line-height: 1.6; color: var(--text-dim); margin-top: 1.2rem; padding-top: 1rem; }
 
+.evctx { color: var(--gold); cursor: pointer; border-bottom: 1px dotted rgba(255,206,84,.4); margin-left: 0.4rem; }
+.evctx:hover { color: #ffe08a; }
+.refusalPanel { border-top: 1px solid rgba(255,60,95,0.25); background: rgba(255,60,95,0.04); padding: 1.1rem 1.5rem; display: none; }
+.refusalPanel.show { display: block; }
+.refusalPanel h4 { font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 0.8rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.05em; }
+.refusalRow { padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.refusalRow:last-child { border-bottom: none; }
+.refusalRow .rlabel { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.3rem; }
+.refusalRow .rval { font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--white); word-break: break-all; }
+.refusalRow .rval.pending { color: var(--accent2); }
+.refusalRow .rval.resolved { color: var(--agent); }
+
 .info-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .info-key { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; flex-shrink: 0; width: 220px; }
 .info-val { font-size: 0.86rem; color: var(--white); font-weight: 300; text-align: right; line-height: 1.5; }
@@ -211,13 +223,14 @@ footer { padding: 2.2rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); dis
     <div class="termMeta" id="termMeta"></div>
     <div class="log" id="log"></div>
     <div class="recPanel" id="recPanel"></div>
+    <div class="refusalPanel" id="refusalPanel"></div>
     <div class="chainBar" id="chainBar"></div>
     <div class="steerRow">
       <input class="steerInput" placeholder="steer the agent (only the driver can)..." disabled>
       <button class="steerBtn" disabled>Steer</button>
     </div>
   </div>
-  <div class="demoNote">EVERY LINE ABOVE IS A SYNTHETIC EVENT GENERATED IN YOUR BROWSER, STYLED TO MATCH THE FORMAT OF A REAL TBN MULTIPLAYER SESSION: NUMBERED EVENTS, A DRIVER TAG, AND AN RSA-SIGNATURE MARKER PER LINE, PLUS A SIGNED HASH CHAIN SUMMARY AT THE BOTTOM. CLICK ANY <span style="color:var(--agent);border-bottom:1px dotted rgba(127,224,160,.4)">RSA-SIGNED</span> MARKER TO SEE WHAT THE SIGNATURE ACTUALLY COVERS. NO REAL BOT ID, SIGNATURE, OR HASH CHAIN IS PRODUCED, AND NOTHING HERE CONNECTS TO ANY LIVE SESSION.</div>
+  <div class="demoNote">EVERY LINE ABOVE IS A SYNTHETIC EVENT GENERATED IN YOUR BROWSER, STYLED TO MATCH THE FORMAT OF A REAL TBN MULTIPLAYER SESSION: NUMBERED EVENTS, A DRIVER TAG, AND AN RSA-SIGNATURE MARKER PER LINE, PLUS A SIGNED HASH CHAIN SUMMARY AT THE BOTTOM. CLICK ANY <span style="color:var(--agent);border-bottom:1px dotted rgba(127,224,160,.4)">RSA-SIGNED</span> MARKER TO SEE WHAT THE SIGNATURE ACTUALLY COVERS. CLICK <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">🔏 approval_context_hash</span> TO SEE WHAT AN APPROVER ACTUALLY HAD IN FRONT OF THEM AT THE MOMENT THEY APPROVED — NOT JUST WHO CLICKED APPROVE. CLICK <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">🚫 refusal logged</span> OR <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">↩ followup recorded</span> TO SEE THAT A DECLINE IS A DURABLE, JOINED RECORD RATHER THAN A DEAD END. NO REAL BOT ID, SIGNATURE, HASH CHAIN, APPROVAL, OR REFUSAL RECORD IS PRODUCED, AND NOTHING HERE CONNECTS TO ANY LIVE SESSION.</div>
 </section>
 
 <section class="section" id="trust" style="background:var(--mid)">
@@ -232,6 +245,8 @@ footer { padding: 2.2rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); dis
     <div class="info-row"><div class="info-key">Binding Hash</div><div class="info-val">Each receipt's binding hash is computed over the receipt ID, the exact action, and the exact target. If any of those three don't match at execution time, the binding check fails and nothing happens.</div></div>
     <div class="info-row"><div class="info-key">Consuming Failures</div><div class="info-val">Security-relevant failures &mdash; forged attestation, replay attempts, wrong action or target &mdash; consume the receipt so it cannot be retried. Ordinary failures like a downstream timeout do not.</div></div>
     <div class="info-row"><div class="info-key">Clawback</div><div class="info-val">A separate clawback record can be issued against a past receipt, citing the original receipt ID and a reason, without silently rewriting history.</div></div>
+    <div class="info-row"><div class="info-key">Approval Context Hash</div><div class="info-val">An approval binds not just who approved, but a hash of exactly what was rendered to them at that moment &mdash; the session state, prior turns, other participants' actions. Authority and informed authority are two different claims; this makes both provable.</div></div>
+    <div class="info-row"><div class="info-key">Refusal Log</div><div class="info-val">A hard refusal is written as a durable, signed record rather than a dead end in the transcript. Whatever happens next &mdash; override, escalation, or nothing &mdash; is appended to that same record, so the audit trail isn't silent exactly where it matters most.</div></div>
   </div>
 </section>
 
@@ -357,11 +372,23 @@ const EVENTS = [
       note:'State-changing action. Bound to bob\'s approver role for this session.'}},
   {kind:'filter', icon:'🔵', text:'Hardin Filter (G8-G16): 9/9 clean', driver:'bob'},
   {kind:'memory', icon:'🔴', text:'Hardin Memory remember: persisted 1 finding(s) — rate updated to £3,780/mo', driver:'bob'},
+  {kind:'agent',  icon:'',   text:'agent: bob approved the rate change.', driver:'bob',
+    approval:{approver:'bob', proposal:'contract.update_rate → £3,780/mo',
+      rendered_context:['alice\'s original lookup (step 1)', 'bob\'s 10% discount request (step 2)', 'Hardin Filter clean result'],
+      note:'The approval is bound to a hash of exactly this — what bob had in front of him at the moment he approved, not just his name. If the session state behind this had been different, the hash would not match.'}},
   {kind:'agent',  icon:'',   text:'agent: [step 3] bob requested deletion of the old draft terms file.', driver:'bob',
     detail:{action:'file.delete', target:'acme-corp/draft-terms-old.pdf', tier:'TIER_3', verdict:'REFUSE',
       note:'REFUSED — no Tier 3 authority bound in this session. No effect occurred.'}},
-  {kind:'agent',  icon:'',   text:'agent: Refused — no valid receipt for a Tier 3 action here. Nothing was deleted.', driver:'bob'},
-  {kind:'agent',  icon:'',   text:'agent: Task complete.', driver:'bob'},
+  {kind:'agent',  icon:'',   text:'agent: Refused — no valid receipt for a Tier 3 action here. Nothing was deleted.', driver:'bob',
+    refusal:{action:'file.delete', reason:'no Tier 3 authority bound in this session',
+      rendered_context:['bob requested deletion (step 3)', 'session tier ceiling: TIER_2'],
+      followupPending:true}},
+  {kind:'driver', icon:'🔁', text:'bob escalated to alice for Tier 3 sign-off', driver:'alice'},
+  {kind:'agent',  icon:'',   text:'agent: alice granted Tier 3 authority for this session — retrying the delete.', driver:'alice',
+    detail:{action:'file.delete', target:'acme-corp/draft-terms-old.pdf', tier:'TIER_3', verdict:'ALLOW',
+      note:'A NEW receipt, bound to alice\'s Tier 3 grant — the original refusal is not overwritten, only followed up.'},
+    refusalFollowup:{ofAction:'file.delete', followup:'alice reviewed the escalation and granted Tier 3 authority; delete re-attempted and allowed', followupSource:'alice'}},
+  {kind:'agent',  icon:'',   text:'agent: Task complete.', driver:'alice'},
 ];
 
 function evClass(kind){
@@ -391,6 +418,9 @@ function renderLog(){
 
     inner += '<span class="evtag">[driver: ' + (e.driver || 'none') + ']</span> ';
     inner += '<span class="evsig" data-idx="'+i+'">✓ RSA-signed ' + SIG_TAG + '</span>';
+    if (e.approval) inner += ' <span class="evctx" data-approval-idx="'+i+'">🔏 approval_context_hash</span>';
+    if (e.refusal) inner += ' <span class="evctx" data-refusal-idx="'+i+'">🚫 refusal logged</span>';
+    if (e.refusalFollowup) inner += ' <span class="evctx" data-followup-idx="'+i+'">↩ followup recorded</span>';
 
     row.innerHTML = inner;
     log.appendChild(row);
@@ -399,6 +429,15 @@ function renderLog(){
 
   log.querySelectorAll('.evsig').forEach(el => {
     el.addEventListener('click', () => showSignature(EVENTS[parseInt(el.dataset.idx,10)], parseInt(el.dataset.idx,10)));
+  });
+  log.querySelectorAll('[data-approval-idx]').forEach(el => {
+    el.addEventListener('click', () => showApproval(EVENTS[parseInt(el.dataset.approvalIdx,10)]));
+  });
+  log.querySelectorAll('[data-refusal-idx]').forEach(el => {
+    el.addEventListener('click', () => showRefusal(EVENTS[parseInt(el.dataset.refusalIdx,10)]));
+  });
+  log.querySelectorAll('[data-followup-idx]').forEach(el => {
+    el.addEventListener('click', () => showRefusal(null, EVENTS[parseInt(el.dataset.followupIdx,10)]));
   });
 }
 
@@ -439,6 +478,55 @@ function showSignature(e, idx){
   }
   p.innerHTML = '<h4>Signature detail — synthetic, generated in your browser</h4>' +
     rows.map(([k,v]) => '<div class="recRow"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>').join('');
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function showApproval(e){
+  const p = document.getElementById('recPanel');
+  const a = e.approval;
+  const ctxSeed = SIG_TAG + '|approval|' + a.approver + '|' + a.proposal;
+  const hash = fauxHash(ctxSeed);
+  const rows = [
+    ['approver', a.approver],
+    ['proposal', a.proposal],
+    ['rendered_context', a.rendered_context.map(c => '• ' + c).join('<br>')],
+    ['approval_context_hash', 'sha256:' + hash.slice(0,32) + '…'],
+    ['informed_context_captured', 'true'],
+    ['note', a.note],
+  ];
+  p.innerHTML = '<h4>Approval — bound to what the approver actually saw (synthetic)</h4>' +
+    rows.map(([k,v]) => '<div class="recRow"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>').join('');
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* Refusal state is tracked across the two demo panel entry points (the
+   refusal event itself, and the later followup event) so re-opening either
+   one always shows the current pending/resolved state — same shape as the
+   real get_refusals() join in the backend. */
+const REFUSAL_STATE = { followupPending: true, followup: null, followupSource: null };
+
+function showRefusal(refusalEvent, followupEvent){
+  if (followupEvent && followupEvent.refusalFollowup) {
+    REFUSAL_STATE.followupPending = false;
+    REFUSAL_STATE.followup = followupEvent.refusalFollowup.followup;
+    REFUSAL_STATE.followupSource = followupEvent.refusalFollowup.followupSource;
+  }
+  const src = refusalEvent ? refusalEvent.refusal : EVENTS.find(x => x.refusal).refusal;
+  const seed = SIG_TAG + '|refusal|' + src.action + '|' + src.reason;
+  const hash = fauxHash(seed);
+  const p = document.getElementById('refusalPanel');
+  const rows = [
+    ['action', src.action],
+    ['reason', src.reason],
+    ['rendered_context', src.rendered_context.map(c => '• ' + c).join('<br>')],
+    ['refusal_context_hash', 'sha256:' + hash.slice(0,32) + '…'],
+  ];
+  p.innerHTML = '<h4>Refusal log — a decline is a durable record, not a dead end (synthetic)</h4>' +
+    rows.map(([k,v]) => '<div class="refusalRow"><div class="rlabel">'+k+'</div><div class="rval">'+v+'</div></div>').join('') +
+    '<div class="refusalRow"><div class="rlabel">followup_pending</div><div class="rval '+(REFUSAL_STATE.followupPending?'pending':'resolved')+'">'+REFUSAL_STATE.followupPending+'</div></div>' +
+    (REFUSAL_STATE.followup ? '<div class="refusalRow"><div class="rlabel">followup ('+REFUSAL_STATE.followupSource+')</div><div class="rval resolved">'+REFUSAL_STATE.followup+'</div></div>' : '');
   p.classList.add('show');
   p.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
