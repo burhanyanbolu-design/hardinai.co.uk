@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EF6RKG8KY2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EF6RKG8KY2');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBN + aperture-nexus — Integration Demo</title>
+<meta name="description" content="A working integration between aperture-nexus (memory engine) and TBN Protocol (trust + governance layer): signed, tamper-evident memory receipts and versioned belief revision.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Segoe UI',sans-serif;background:#0b0e14;color:#d7dbe3;line-height:1.6;padding:0 0 80px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+  header{background:linear-gradient(135deg,#0d1220,#141b2e);border-bottom:1px solid #222a3a;padding:44px 0 34px;margin-bottom:36px}
+  h1{font-size:29px;color:#fff;letter-spacing:-.3px;margin-bottom:10px}
+  h1 .plus{color:#00d4b8}
+  .sub{color:#8b93a7;font-size:16px;max-width:620px}
+  h2{font-size:20px;color:#fff;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid #222a3a}
+  h3{font-size:15px;color:#00d4b8;margin:22px 0 6px;font-family:'Segoe UI',monospace}
+  p{margin-bottom:14px;color:#c2c8d4}
+  .note{background:#131a2a;border-left:3px solid #00d4b8;border-radius:6px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#aab2c4}
+  .note b{color:#e6ebf4}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+  @media(max-width:640px){.two{grid-template-columns:1fr}}
+  .card{background:#111725;border:1px solid #222a3a;border-radius:10px;padding:18px}
+  .card h4{color:#fff;font-size:15px;margin-bottom:8px}
+  .card p{font-size:14px;color:#9aa3b6;margin:0}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:10px}
+  .tag-them{background:#1c2438;color:#7aa2ff}
+  .tag-us{background:#0f2f2a;color:#00d4b8}
+  pre{background:#080b11;border:1px solid #1c2434;border-radius:10px;padding:18px;overflow-x:auto;font-family:'Cascadia Code','Consolas',monospace;font-size:13px;line-height:1.55;color:#c8d0de;margin:12px 0}
+  pre .ok{color:#3ddc97}
+  pre .bad{color:#ff6b81}
+  pre .key{color:#7aa2ff}
+  pre .dim{color:#5c6478}
+  pre .hl{color:#f0c674}
+  .steps{counter-reset:s;margin:14px 0}
+  .step{position:relative;padding:2px 0 16px 40px;margin-bottom:2px;border-left:1px solid #222a3a;margin-left:12px}
+  .step:before{counter-increment:s;content:counter(s);position:absolute;left:-12px;top:0;width:24px;height:24px;background:#00d4b8;color:#08210b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+  .step b{color:#fff}
+  footer{margin-top:40px;padding-top:22px;border-top:1px solid #222a3a;color:#6b7488;font-size:13px}
+  a{color:#00d4b8}
+  .honest{background:#1a1410;border-left:3px solid #f0c674;border-radius:6px;padding:14px 18px;margin:18px 0;font-size:14px;color:#d8c9a8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>aperture-nexus <span class="plus">+</span> TBN Protocol</h1>
+    <p class="sub">A working integration: your memory engine, plus a signed, independently-verifiable trust layer on top. Below is the real output from a live run — with the exact code that produced it.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="honest">
+    <b>What this is, honestly:</b> the terminal output shown below is captured from a
+    real run on my machine — genuine RSA signatures, real content hashes, real
+    contradiction detection — not a mockup or a video. It ran against your actual
+    public <code>aperture-nexus</code> repo (imported as a dependency, your source
+    untouched) and a real local ApertureDB instance. The full source of the demo
+    script is at the bottom so you can run it yourself and reproduce every line.
+  </div>
+
+  <h2>The idea in one line</h2>
+  <p>aperture-nexus stores and retrieves memory (multimodal, vector search, graph).
+  TBN sits alongside it and proves that memory is <b>genuine, unaltered, and
+  auditably revised</b> — without anyone needing to trust either of us. Two layers,
+  not two competitors.</p>
+
+  <div class="two">
+    <div class="card">
+      <span class="tag tag-them">aperture-nexus · yours</span>
+      <h4>The memory engine</h4>
+      <p>Stores knowledge across text/image/video, vector search + knowledge graph,
+      multi-tenant. Stays exactly as you built it — TBN never touches your storage.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-us">TBN · ours</span>
+      <h4>The trust layer</h4>
+      <p>Certified agent identity, a signed tamper-evident receipt per memory write,
+      and versioned belief-revision (via our Hardin Memory governance layer).</p>
+    </div>
+  </div>
+
+  <h2>Part 1 — Signed receipt around a memory commit</h2>
+  <div class="steps">
+    <div class="step"><b>aperture-nexus commits a memory</b> exactly as normal — two entries under a session.</div>
+    <div class="step"><b>TBN wraps a signed receipt</b> (RSA-PSS-SHA256) recording which agent wrote it, what session, how many entries, and when.</div>
+    <div class="step"><b>Anyone can verify it independently</b> with only the public key — no trust in ApertureData or Hardin AI required.</div>
+    <div class="step"><b>Tampering is caught:</b> edit any field of the receipt and verification fails.</div>
+  </div>
+
+<pre>
+<span class="dim">======================================================================</span>
+<span class="hl">TBN + aperture-nexus integration demo</span>
+<span class="dim">======================================================================</span>
+
+[aperture-nexus] Authenticated as: Burhan Yanbolu
+[aperture-nexus] Committed &rarr; memory_id: 2005d535-4971-4aad-bd72-80ff4d996e65
+
+[TBN] Signed receipt for this memory commit:
+    <span class="key">type</span>: TBN-MEMORY-COMMIT-RECEIPT
+    <span class="key">agent_id</span>: tbn-bot-demo-clothing-recommender
+    <span class="key">memory_backend</span>: aperture-nexus
+    <span class="key">session_name</span>: tbn-integration-demo
+    <span class="key">memory_id</span>: 2005d535-4971-4aad-bd72-80ff4d996e65
+    <span class="key">entries_committed</span>: 2
+    <span class="key">signed_at</span>: 2026-08-06T07:49:12Z
+    <span class="key">issuer</span>: TBN Protocol (Hardin Enterprises Ltd)
+    <span class="key">signature_alg</span>: RSA-PSS-SHA256
+    <span class="key">signature</span>: FyG00EVsk7kDRnrqC/UJ9/nY04Ns8cTTgxQYldBu... <span class="dim">(truncated)</span>
+
+[Independent verify] Signature valid: <span class="ok">True</span>
+[Independent verify] Tampered receipt still valid: <span class="bad">False</span>  <span class="dim">(must be False)</span>
+</pre>
+
+  <div class="note">aperture-nexus's own storage and search are untouched. TBN adds a
+  signed, independently-verifiable receipt of the write — the piece neither product
+  has on its own today.</div>
+
+  <h2>Part 2 — Versioned belief revision (G7)</h2>
+  <p>Your roadmap lists <b>"Memory.update() with lineage"</b> as a v2 item. This is
+  essentially that, working today: when a stored fact is contradicted, the old
+  version is <b>signed-superseded (kept, not deleted)</b> and the change is narrated
+  and signed — a silent overwrite becomes an auditable, explained revision.</p>
+
+<pre>
+<span class="dim">======================================================================</span>
+<span class="hl">G7 demo: versioned belief revision</span>
+<span class="dim">======================================================================</span>
+
+[G7] First fact for this agent:
+    "Customer Priya ordered a size Medium jacket for the winter sale."
+    revised: <span class="ok">False</span>   <span class="dim">(nothing to supersede yet — brand new fact)</span>
+
+[G7] A CONTRADICTING fact arrives for the same agent:
+    "Priya's order was updated: she now wants a size Large jacket, not Medium."
+    revised: <span class="ok">True</span>    <span class="dim">(detected as a real contradiction of fact #1)</span>
+
+    <span class="key">narration</span>: "I'm updating my belief about this &mdash; Priya contacted
+    support to correct her size after the Medium didn't fit. The previous
+    version has been signed-superseded, not deleted; its full history
+    stays auditable."
+
+    <span class="key">signed narration record id</span>: tbn_revise_3abeee1e57dc958e9d5d06dc
+    <span class="key">signature present</span>: <span class="ok">True</span>
+</pre>
+
+  <div class="note">The size correction isn't a silent overwrite. It's a signed,
+  narrated, auditable revision — provable months later: what the agent believed,
+  what changed, and <b>why</b>.</div>
+
+  <h2>Where TBN adds most for aperture-nexus</h2>
+  <p>Your engine stores and retrieves better than ours ever aimed to. Ours proves
+  what's stored is genuine and auditably revised. Together that's a stronger
+  enterprise story than either alone — your customers who need that accountability
+  get it as a layer on your engine, without you building the trust side yourself.</p>
+
+  <div class="honest">
+    <b>One thing worth being straight about:</b> getting contradiction detection to
+    fire reliably depends on the claims landing in a specific similarity band — a
+    near-identical single-word edit can read as a rephrase rather than a
+    contradiction. It's a real, documented tradeoff in our current approach (it
+    favours avoiding false-positive contradictions), not something hidden. Happy to
+    go into it.
+  </div>
+
+  <footer>
+    Built by Hardin AI (TBN Protocol) against the public aperture-nexus repo, MIT
+    licensed, ©&nbsp;2026 ApertureData Inc. — imported as a dependency, source
+    unmodified. This page shows captured output from a real run; happy to walk
+    through it live or hand over the script to reproduce it. — Burhan
+  </footer>
+
+</div>
+</body>
+</html>

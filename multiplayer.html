@@ -1,0 +1,570 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EF6RKG8KY2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EF6RKG8KY2');</script>
+<title>TBN Multiplayer Agent Sessions — Hardin AI Solutions</title>
+<meta name="description" content="One governed AI agent, many humans, one shared session. Every action the agent takes is receipted, bound, and independently verifiable. Built on TBN Protocol.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hardinai.co.uk/multiplayer.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TBN Multiplayer Agent Sessions — Hardin AI Solutions">
+<meta property="og:description" content="One governed AI agent, many humans, one shared session — every action receipted and bound.">
+<meta property="og:url" content="https://hardinai.co.uk/multiplayer.html">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --black: #050508; --white: #f2f0ea; --accent: #00e5ff; --accent2: #ff3c5f; --mid: #111118; --text-dim: #6a6a7a; --alice: #00e5ff; --bob: #ff3c5f; --agent: #7fe0a0; --gold: #ffce54; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; overflow-x: hidden; }
+a { color: var(--accent); text-decoration: none; }
+
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.04); backdrop-filter: blur(12px); background: rgba(5,5,8,0.7); }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-name { font-family: 'Arial Black', sans-serif; font-size: 1.15rem; font-weight: 900; letter-spacing: 0.18em; color: var(--white); }
+.logo-sub { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; color: var(--accent); opacity: 0.85; margin-top: 2px; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent); color: var(--black); padding: 0.6rem 1.4rem; font-weight: 700; transition: background 0.2s, transform 0.15s; cursor: pointer; border: none; }
+.nav-cta:hover { background: var(--white); transform: translateY(-2px); }
+
+/* ---- contact section, matching the live site's contact-section pattern ---- */
+.contact-section { padding: 6rem 4rem; background: var(--mid); text-align: center; position: relative; overflow: hidden; }
+.contact-glow { position: absolute; width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(0,229,255,0.06) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.contact-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5.5vw, 4.5rem); letter-spacing: 0.04em; line-height: 1; margin-bottom: 1.2rem; position: relative; }
+.contact-section h2 span { color: var(--accent); }
+.contact-section .contact-lede { color: var(--text-dim); font-size: 1rem; margin-bottom: 2.6rem; position: relative; font-weight: 300; max-width: 560px; margin-left: auto; margin-right: auto; }
+.contact-email { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.3rem, 2.6vw, 2rem); letter-spacing: 0.06em; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(0,229,255,0.4); padding-bottom: 4px; transition: color 0.2s, border-color 0.2s; position: relative; display: inline-block; margin-bottom: 2.6rem; }
+.contact-email:hover { color: var(--accent); border-color: var(--accent); }
+.contact-form { max-width: 560px; margin: 0 auto; position: relative; text-align: left; }
+.formRow { margin-bottom: 1.1rem; }
+.formRow label { display: block; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+.formRow input, .formRow textarea { width: 100%; background: rgba(5,5,8,0.6); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 0.8rem 1rem; font-weight: 300; }
+.formRow input:focus, .formRow textarea:focus { outline: none; border-color: var(--accent); }
+.formRow textarea { resize: vertical; min-height: 110px; }
+.formGrid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media(max-width:640px){ .formGrid2 { grid-template-columns: 1fr; } }
+.formSubmit { font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--accent); color: var(--black); padding: 1rem 2.2rem; font-weight: 700; border: none; cursor: pointer; margin-top: 0.4rem; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.formSubmit:hover { background: var(--white); }
+.formNote { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--text-dim); margin-top: 0.9rem; line-height: 1.6; }
+
+.hero { min-height: 62vh; display: flex; align-items: center; padding: 10rem 4rem 5rem; position: relative; overflow: hidden; }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%); }
+.hero-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -55%); pointer-events: none; }
+.hero-content { position: relative; z-index: 2; max-width: 900px; }
+.hero-tag { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+.hero-tag::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.6rem, 7vw, 6rem); line-height: 0.98; letter-spacing: 0.01em; margin-bottom: 1.8rem; color: var(--white); }
+h1 .line-accent { color: var(--accent); display: block; }
+h1 .line-dim { color: rgba(242,240,234,0.28); display: block; }
+.hero-desc { font-size: 1.05rem; line-height: 1.7; color: var(--text-dim); max-width: 560px; margin-bottom: 2.4rem; font-weight: 300; }
+.hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.btn-primary { font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--accent); color: var(--black); padding: 1rem 2.2rem; font-weight: 700; border: none; display: inline-block; cursor: pointer; transition: background 0.2s, transform 0.15s; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.btn-primary:hover { background: var(--white); transform: translateY(-3px); }
+.btn-outline { font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; background: transparent; color: var(--white); padding: 1rem 2.2rem; font-weight: 400; border: 1px solid rgba(255,255,255,0.2); display: inline-block; transition: border-color 0.2s, color 0.2s, transform 0.15s; }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+.hero-note { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--text-dim); margin-top: 1.4rem; max-width: 540px; }
+
+.section { padding: 6rem 4rem; }
+.section-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.8rem); letter-spacing: 0.03em; margin-bottom: 1.2rem; line-height: 1; }
+.section-lede { color: var(--text-dim); max-width: 680px; margin-bottom: 3rem; font-weight: 300; line-height: 1.7; }
+
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); }
+.service-card { background: var(--black); padding: 2.2rem; position: relative; overflow: hidden; transition: background 0.3s; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+.service-card:hover { background: var(--mid); }
+.service-card:hover::before { opacity: 1; }
+.service-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(0,229,255,0.1); line-height: 1; margin-bottom: 1.2rem; }
+.service-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.05em; margin-bottom: 0.7rem; color: var(--white); }
+.service-desc { font-size: 0.88rem; line-height: 1.65; color: var(--text-dim); font-weight: 300; }
+
+/* ---- demo stage: replica of the live terminal-log UI ---- */
+.stage { border: 1px solid rgba(0,229,255,0.15); background: rgba(0,229,255,0.02); padding: 0; overflow: hidden; }
+.termHead { display: flex; align-items: center; gap: 0.9rem; padding: 1.1rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(5,5,8,0.7); flex-wrap: wrap; }
+.termHead .shield { font-size: 1.3rem; }
+.termHead h3 { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); }
+.termBadge { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; color: var(--agent); border: 1px solid rgba(127,224,160,0.35); padding: 0.3rem 0.7rem; }
+@media(max-width:680px){ nav{padding:1.2rem 1.6rem} .hero{padding:9rem 1.6rem 3rem} .section{padding:4rem 1.6rem} }
+
+.termMeta { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--text-dim); padding: 0.7rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.3); }
+.termMeta b { color: var(--accent); font-weight: 400; }
+.termMeta .driverNow { color: var(--agent); font-weight: 700; }
+
+.log { background: #050a08; padding: 1.2rem 1.5rem; max-height: 420px; overflow: auto; font-family: 'Space Mono', monospace; font-size: 0.76rem; line-height: 1.85; }
+.ev { display: block; padding: 0.15rem 0 0.15rem 0.7rem; border-left: 2px solid; margin-bottom: 0.15rem; }
+.ev.k-agent { border-color: #d68a3c; }
+.ev.k-filter { border-color: var(--accent); }
+.ev.k-memory { border-color: var(--accent2); }
+.ev.k-system { border-color: #6a6a7a; }
+.ev.k-driver { border-color: var(--agent); }
+.evnum { color: #4a4a58; }
+.evtime { color: #4a4a58; margin-right: 0.5rem; }
+.evbot { color: var(--accent); }
+.evicon { margin: 0 0.15rem; }
+.evtxt { color: #cfe8d8; }
+.evtag { color: #55665c; }
+.evdriver { color: #f0cf7a; }
+.evsig { color: var(--agent); cursor: pointer; border-bottom: 1px dotted rgba(127,224,160,0.4); }
+.evsig:hover { color: #a8f5c0; }
+.evjoin { color: #9db8ff; }
+.evhandoff { color: #ff9f5a; font-weight: 700; }
+
+.recPanel { border-top: 1px solid rgba(0,229,255,0.2); background: rgba(5,5,8,0.9); padding: 1.1rem 1.5rem; display: none; font-size: 0.8rem; }
+.recPanel.show { display: block; }
+.recPanel h4 { font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 0.7rem; color: var(--agent); text-transform: uppercase; letter-spacing: 0.05em; }
+.recRow { display: flex; gap: 10px; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.recRow:last-child { border-bottom: none; }
+.recRow .k { width: 130px; flex: 0 0 130px; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.05em; color: var(--text-dim); text-transform: uppercase; }
+.recRow .v { font-family: 'Space Mono', monospace; font-size: 0.74rem; word-break: break-all; color: var(--white); }
+
+.chainBar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 0.8rem 1.5rem; background: rgba(127,224,160,0.05); border-top: 1px solid rgba(127,224,160,0.2); font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--agent); }
+.steerRow { display: flex; gap: 0.7rem; padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(5,5,8,0.5); }
+.steerInput { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); color: var(--text-dim); font-family: 'Space Mono', monospace; font-size: 0.75rem; padding: 0.7rem 0.9rem; }
+.steerInput::placeholder { color: #4a4a58; }
+.steerBtn { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(127,224,160,0.15); color: var(--agent); border: 1px solid rgba(127,224,160,0.35); padding: 0.7rem 1.4rem; cursor: not-allowed; opacity: 0.6; }
+
+.demoNote { font-family: 'Space Mono', monospace; font-size: 0.62rem; line-height: 1.6; color: var(--text-dim); margin-top: 1.2rem; padding-top: 1rem; }
+
+.evctx { color: var(--gold); cursor: pointer; border-bottom: 1px dotted rgba(255,206,84,.4); margin-left: 0.4rem; }
+.evctx:hover { color: #ffe08a; }
+.refusalPanel { border-top: 1px solid rgba(255,60,95,0.25); background: rgba(255,60,95,0.04); padding: 1.1rem 1.5rem; display: none; }
+.refusalPanel.show { display: block; }
+.refusalPanel h4 { font-family: 'Space Mono', monospace; font-size: 0.72rem; margin-bottom: 0.8rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.05em; }
+.refusalRow { padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.refusalRow:last-child { border-bottom: none; }
+.refusalRow .rlabel { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.3rem; }
+.refusalRow .rval { font-family: 'Space Mono', monospace; font-size: 0.76rem; color: var(--white); word-break: break-all; }
+.refusalRow .rval.pending { color: var(--accent2); }
+.refusalRow .rval.resolved { color: var(--agent); }
+
+.info-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.info-key { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; flex-shrink: 0; width: 220px; }
+.info-val { font-size: 0.86rem; color: var(--white); font-weight: 300; text-align: right; line-height: 1.5; }
+
+.faq-section { background: var(--mid); }
+.faq { max-width: 760px; }
+.faq details { border-top: 1px solid rgba(255,255,255,0.08); padding: 1.2rem 0; }
+.faq summary { cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--white); }
+.faq p { color: var(--text-dim); font-size: 0.88rem; margin-top: 0.7rem; font-weight: 300; line-height: 1.7; }
+
+footer { padding: 2.2rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 0.08em; color: var(--text-dim); max-width: 640px; }
+.footer-links a { font-family: 'Space Mono', monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-left: 1.6rem; }
+.footer-links a:hover { color: var(--accent); }
+</style></head><body>
+
+<nav>
+  <a href="https://hardinai.co.uk/" class="logo">
+    <span class="logo-text">
+      <span class="logo-name">HARDIN</span>
+      <span class="logo-sub">AI SOLUTIONS</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#trust">Trust model</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Talk to Us</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">TBN Protocol &middot; Multiplayer Agent Sessions</div>
+    <h1>
+      <span>One agent.</span>
+      <span class="line-accent">Many humans.</span>
+      <span class="line-dim">Every action, receipted.</span>
+    </h1>
+    <p class="hero-desc">Multiple people join a single shared AI agent session &mdash; and every
+      message, decision, and action the agent takes is bound to a cryptographic receipt.
+      Not a log you have to trust. A receipt you can check.</p>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary">See the demo</a>
+      <a href="#how" class="btn-outline">How it works</a>
+    </div>
+    <p class="hero-note">The demo below is illustrative and runs entirely in your browser. It does not connect to a live session or issue real credentials.</p>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-label">What We Built</div>
+  <h2 class="section-title">A Shared Agent, Not A Shared Log</h2>
+  <p class="section-lede">Normally an AI agent talks to one person. A multiplayer session lets
+    several people share <em>one</em> agent and one conversation &mdash; a support call with
+    two colleagues, a negotiation with two counterparties, a review with an approver and a
+    requester. Everyone sees the agent's reasoning, and every consequential action is checked
+    before it happens, not audited after.</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-num">01</div><div class="service-name">Create or Join</div><p class="service-desc">One person opens a session and gets a session ID. Anyone with that ID can join as a named participant. The agent is shared, not duplicated per person.</p></div>
+    <div class="service-card"><div class="service-num">02</div><div class="service-name">Every Action Gets a Receipt</div><p class="service-desc">Before the agent does anything beyond talking &mdash; updating a record, sending something, taking a consequential action &mdash; it must hold a valid receipt naming the exact action, target, and who authorized it.</p></div>
+    <div class="service-card"><div class="service-num">03</div><div class="service-name">Wrong Receipt, No Effect</div><p class="service-desc">A receipt for the wrong action, wrong target, or an expired receipt is refused before anything happens. Enforced by the binding check, not by the agent's judgement.</p></div>
+  </div>
+</section>
+
+<section class="section" id="demo">
+  <div class="section-label">Illustrative Walkthrough</div>
+  <h2 class="section-title">Alice and Bob, One Session</h2>
+  <p class="section-lede">This reconstructs, in miniature, what a real session produces: two
+    participants, a shared agent, a plain-language transcript, and a receipt behind every
+    action. Click a receipt tag to inspect it. <strong>Nothing here is live</strong> &mdash;
+    this is a fixed illustrative script, not a connection to any running system.</p>
+
+  <div class="stage">
+    <div class="termHead">
+      <span class="shield">&#128737;&#65039;</span>
+      <h3>TBN Multiplayer Agent Session</h3>
+      <span class="termBadge">ONE AGENT &middot; MANY HUMANS &middot; LIVE &middot; PROVABLE</span>
+    </div>
+    <div class="termMeta" id="termMeta"></div>
+    <div class="log" id="log"></div>
+    <div class="recPanel" id="recPanel"></div>
+    <div class="refusalPanel" id="refusalPanel"></div>
+    <div class="chainBar" id="chainBar"></div>
+    <div class="steerRow">
+      <input class="steerInput" placeholder="steer the agent (only the driver can)..." disabled>
+      <button class="steerBtn" disabled>Steer</button>
+    </div>
+  </div>
+  <div class="demoNote">EVERY LINE ABOVE IS A SYNTHETIC EVENT GENERATED IN YOUR BROWSER, STYLED TO MATCH THE FORMAT OF A REAL TBN MULTIPLAYER SESSION: NUMBERED EVENTS, A DRIVER TAG, AND AN RSA-SIGNATURE MARKER PER LINE, PLUS A SIGNED HASH CHAIN SUMMARY AT THE BOTTOM. CLICK ANY <span style="color:var(--agent);border-bottom:1px dotted rgba(127,224,160,.4)">RSA-SIGNED</span> MARKER TO SEE WHAT THE SIGNATURE ACTUALLY COVERS. CLICK <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">🔏 approval_context_hash</span> TO SEE WHAT AN APPROVER ACTUALLY HAD IN FRONT OF THEM AT THE MOMENT THEY APPROVED — NOT JUST WHO CLICKED APPROVE. CLICK <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">🚫 refusal logged</span> OR <span style="color:var(--gold);border-bottom:1px dotted rgba(255,206,84,.4)">↩ followup recorded</span> TO SEE THAT A DECLINE IS A DURABLE, JOINED RECORD RATHER THAN A DEAD END. NO REAL BOT ID, SIGNATURE, HASH CHAIN, APPROVAL, OR REFUSAL RECORD IS PRODUCED, AND NOTHING HERE CONNECTS TO ANY LIVE SESSION.</div>
+</section>
+
+<section class="section" id="trust" style="background:var(--mid)">
+  <div class="section-label">The Trust Model</div>
+  <h2 class="section-title">No Receipt, No Effect</h2>
+  <p class="section-lede" style="font-style:italic;color:#c9d3e0">"Wrong action, wrong target,
+    wrong surface, wrong tier, or an expired receipt means no effect &mdash; regardless of what
+    the agent or any participant intended."</p>
+  <div style="max-width:820px">
+    <div class="info-row"><div class="info-key">Decision Tiers</div><div class="info-val">Every action is classified before it runs: Tier 1 reversible (read, list, search), Tier 2 state-changing (update a record), Tier 3 consequential (transfer, delete), Tier 4 irreversible (deploy, bulk delete).</div></div>
+    <div class="info-row"><div class="info-key">Hold &rarr; Bind</div><div class="info-val">A Hold token is issued first: it cannot execute anything, and exists purely for human review. Only after review does a Bind receipt get issued, and only a valid Bind receipt can trigger an effect.</div></div>
+    <div class="info-row"><div class="info-key">Binding Hash</div><div class="info-val">Each receipt's binding hash is computed over the receipt ID, the exact action, and the exact target. If any of those three don't match at execution time, the binding check fails and nothing happens.</div></div>
+    <div class="info-row"><div class="info-key">Consuming Failures</div><div class="info-val">Security-relevant failures &mdash; forged attestation, replay attempts, wrong action or target &mdash; consume the receipt so it cannot be retried. Ordinary failures like a downstream timeout do not.</div></div>
+    <div class="info-row"><div class="info-key">Clawback</div><div class="info-val">A separate clawback record can be issued against a past receipt, citing the original receipt ID and a reason, without silently rewriting history.</div></div>
+    <div class="info-row"><div class="info-key">Approval Context Hash</div><div class="info-val">An approval binds not just who approved, but a hash of exactly what was rendered to them at that moment &mdash; the session state, prior turns, other participants' actions. Authority and informed authority are two different claims; this makes both provable.</div></div>
+    <div class="info-row"><div class="info-key">Refusal Log</div><div class="info-val">A hard refusal is written as a durable, signed record rather than a dead end in the transcript. Whatever happens next &mdash; override, escalation, or nothing &mdash; is appended to that same record, so the audit trail isn't silent exactly where it matters most.</div></div>
+  </div>
+</section>
+
+<section class="section faq-section" id="faq">
+  <div class="section-label">Questions</div>
+  <h2 class="section-title">Before You Ask</h2>
+  <div class="faq">
+    <details>
+      <summary>Is the demo above connected to a real system?</summary>
+      <p>No. It runs entirely in your browser using JavaScript embedded in this page. The
+        session, the participants, the transcript, and the receipts are all fixed illustrative
+        content. No network request is made to any TBN service, and no real credential is
+        issued.</p>
+    </details>
+    <details>
+      <summary>What does a real receipt actually prove?</summary>
+      <p>That a specific action, on a specific target, under a specific authority, was checked
+        against a binding hash before it was allowed to take effect &mdash; and that a wrong or
+        expired receipt is refused rather than silently accepted. It proves the check happened,
+        not that the underlying business decision was correct.</p>
+    </details>
+    <details>
+      <summary>Can more than two people join a session?</summary>
+      <p>The model is not limited to two. This page uses Alice and Bob because two participants
+        are the clearest way to show the shared-agent, per-action receipt pattern.</p>
+    </details>
+    <details>
+      <summary>Is this a certification or compliance guarantee?</summary>
+      <p>No. This describes an internal governance mechanism, not third-party certification or
+        accreditation of any kind.</p>
+    </details>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-glow"></div>
+  <div class="section-label" style="justify-content:center;display:flex">Talk to Us</div>
+  <h2>Ask us about <span>multiplayer agent sessions.</span></h2>
+  <p class="contact-lede">Tell us what you're trying to build with a shared, governed agent
+    session, and we'll get back to you. Or skip the form and email us directly.</p>
+  <a href="mailto:info@hardinai.co.uk" class="contact-email">info@hardinai.co.uk</a>
+
+  <form class="contact-form" id="contactForm">
+    <div class="formGrid2">
+      <div class="formRow">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" required autocomplete="name">
+      </div>
+      <div class="formRow">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email">
+      </div>
+    </div>
+    <div class="formRow">
+      <label for="cf-company">Company (optional)</label>
+      <input id="cf-company" name="company" type="text" autocomplete="organization">
+    </div>
+    <div class="formRow">
+      <label for="cf-message">What do you want to ask about?</label>
+      <textarea id="cf-message" name="message" required placeholder="e.g. we'd like to run a multiplayer session for a client onboarding call..."></textarea>
+    </div>
+    <button type="submit" class="formSubmit">Send &mdash; opens your email app</button>
+    <p class="formNote">This form does not submit anywhere on its own. Pressing send opens your
+      default email application with a pre-filled message addressed to
+      info@hardinai.co.uk &mdash; nothing is transmitted until you actually send that email
+      yourself. No data from this form is stored or sent to any server.</p>
+  </form>
+</section>
+
+<footer>
+  <a href="https://hardinai.co.uk/" class="logo">
+    <span class="logo-text">
+      <span class="logo-name" style="font-size:0.95rem">HARDIN</span>
+      <span class="logo-sub" style="font-size:0.42rem">AI SOLUTIONS</span>
+    </span>
+  </a>
+  <div class="footer-copy">Hardin Enterprises UK Ltd &middot; TBN Protocol. This page describes and
+    demonstrates the multiplayer agent session concept. It does not link to or expose any live,
+    production session.</div>
+  <div class="footer-links">
+    <a href="https://hardinai.co.uk/">Home</a>
+    <a href="mailto:info@hardinai.co.uk">Contact</a>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+function fauxHash(seed){
+  let h1=0x811c9dc5, h2=0x1000193;
+  for(let i=0;i<seed.length;i++){
+    const c=seed.charCodeAt(i);
+    h1=(h1^c)>>>0; h1=Math.imul(h1,2654435761)>>>0;
+    h2=(h2+c)>>>0; h2=Math.imul(h2,16777619)>>>0;
+  }
+  const a=(h1^h2)>>>0, b=(h1+h2)>>>0;
+  return (a.toString(16).padStart(8,'0')+b.toString(16).padStart(8,'0')+
+    (a^0x9e3779b9>>>0).toString(16).padStart(8,'0')+
+    (b^0x85ebca6b>>>0).toString(16).padStart(8,'0'));
+}
+
+/* Synthetic session identifiers, generated once per page load so they look
+   real but are never the same twice and never validate against anything. */
+const BOT_ID = 'tbn-bot-' + fauxHash('demo-bot-seed-' + Date.now()).slice(0,16);
+const SESSION_ID = 'mps ' + fauxHash('demo-session-' + Date.now()).slice(0,8);
+const SIG_TAG = 'tbnnet_' + fauxHash('demo-sig-' + Date.now()).slice(0,10);
+
+/* Fixed illustrative event script, in the same shape as the real log:
+   kind drives the left border colour + icon, driver is who currently holds
+   the wheel, sig is a per-event synthetic signature you can click to inspect. */
+const EVENTS = [
+  {kind:'system', icon:'🔵', text:'Session opened. Agent ' + BOT_ID + ' assigned.', driver:null},
+  {kind:'driver', icon:'👤', text:'alice joined as driver', driver:'alice'},
+  {kind:'driver', icon:'👀', text:'bob joined as watcher', driver:'alice'},
+  {kind:'agent',  icon:'',   text:'agent: [step 1] Looking up current contract terms for Acme Corp.', driver:'alice',
+    detail:{action:'contract.read', target:'acme-corp/contract-2026', tier:'TIER_1', verdict:'ALLOW',
+      note:'Reversible read action. No sign-off required.'}},
+  {kind:'filter', icon:'🔵', text:'Hardin Filter (G8-G16): 9/9 clean', driver:'alice'},
+  {kind:'agent',  icon:'',   text:'agent: Acme Corp — term ends 2026-11-30, renewal rate £4,200/mo.', driver:'alice'},
+  {kind:'driver', icon:'🔁', text:'alice handed control alice → bob', driver:'bob'},
+  {kind:'agent',  icon:'',   text:'agent: [step 2] bob requested a 10% renewal discount — updating contract rate.', driver:'bob',
+    detail:{action:'contract.update_rate', target:'acme-corp/contract-2026', tier:'TIER_2', verdict:'ALLOW',
+      note:'State-changing action. Bound to bob\'s approver role for this session.'}},
+  {kind:'filter', icon:'🔵', text:'Hardin Filter (G8-G16): 9/9 clean', driver:'bob'},
+  {kind:'memory', icon:'🔴', text:'Hardin Memory remember: persisted 1 finding(s) — rate updated to £3,780/mo', driver:'bob'},
+  {kind:'agent',  icon:'',   text:'agent: bob approved the rate change.', driver:'bob',
+    approval:{approver:'bob', proposal:'contract.update_rate → £3,780/mo',
+      rendered_context:['alice\'s original lookup (step 1)', 'bob\'s 10% discount request (step 2)', 'Hardin Filter clean result'],
+      note:'The approval is bound to a hash of exactly this — what bob had in front of him at the moment he approved, not just his name. If the session state behind this had been different, the hash would not match.'}},
+  {kind:'agent',  icon:'',   text:'agent: [step 3] bob requested deletion of the old draft terms file.', driver:'bob',
+    detail:{action:'file.delete', target:'acme-corp/draft-terms-old.pdf', tier:'TIER_3', verdict:'REFUSE',
+      note:'REFUSED — no Tier 3 authority bound in this session. No effect occurred.'}},
+  {kind:'agent',  icon:'',   text:'agent: Refused — no valid receipt for a Tier 3 action here. Nothing was deleted.', driver:'bob',
+    refusal:{action:'file.delete', reason:'no Tier 3 authority bound in this session',
+      rendered_context:['bob requested deletion (step 3)', 'session tier ceiling: TIER_2'],
+      followupPending:true}},
+  {kind:'driver', icon:'🔁', text:'bob escalated to alice for Tier 3 sign-off', driver:'alice'},
+  {kind:'agent',  icon:'',   text:'agent: alice granted Tier 3 authority for this session — retrying the delete.', driver:'alice',
+    detail:{action:'file.delete', target:'acme-corp/draft-terms-old.pdf', tier:'TIER_3', verdict:'ALLOW',
+      note:'A NEW receipt, bound to alice\'s Tier 3 grant — the original refusal is not overwritten, only followed up.'},
+    refusalFollowup:{ofAction:'file.delete', followup:'alice reviewed the escalation and granted Tier 3 authority; delete re-attempted and allowed', followupSource:'alice'}},
+  {kind:'agent',  icon:'',   text:'agent: Task complete.', driver:'alice'},
+];
+
+function evClass(kind){
+  return {agent:'k-agent', filter:'k-filter', memory:'k-memory', system:'k-system', driver:'k-driver'}[kind] || 'k-system';
+}
+
+function renderLog(){
+  const log = document.getElementById('log');
+  log.innerHTML = '';
+  let t = 34; // seconds, purely cosmetic incrementing clock
+  EVENTS.forEach((e, i) => {
+    t += 2 + Math.floor(Math.random()*3);
+    const mm = String(2 + Math.floor(t/60)).padStart(2,'0');
+    const ss = String(t%60).padStart(2,'0');
+    const row = document.createElement('div');
+    row.className = 'ev ' + evClass(e.kind);
+
+    let inner = '<span class="evnum">#' + (i+5) + '</span> <span class="evtime">02:'+mm.slice(0,0)+mm+':'+ss+'</span> ';
+
+    if (e.kind === 'driver') {
+      inner += '<span class="'+(e.text.includes('handed control') ? 'evhandoff' : 'evjoin')+'">'+e.text+'</span> ';
+    } else {
+      inner += '<span class="evbot">' + BOT_ID + '</span> ';
+      if (e.icon) inner += '<span class="evicon">' + e.icon + '</span> ';
+      inner += '<span class="evtxt">' + e.text + '</span> ';
+    }
+
+    inner += '<span class="evtag">[driver: ' + (e.driver || 'none') + ']</span> ';
+    inner += '<span class="evsig" data-idx="'+i+'">✓ RSA-signed ' + SIG_TAG + '</span>';
+    if (e.approval) inner += ' <span class="evctx" data-approval-idx="'+i+'">🔏 approval_context_hash</span>';
+    if (e.refusal) inner += ' <span class="evctx" data-refusal-idx="'+i+'">🚫 refusal logged</span>';
+    if (e.refusalFollowup) inner += ' <span class="evctx" data-followup-idx="'+i+'">↩ followup recorded</span>';
+
+    row.innerHTML = inner;
+    log.appendChild(row);
+  });
+  log.scrollTop = log.scrollHeight;
+
+  log.querySelectorAll('.evsig').forEach(el => {
+    el.addEventListener('click', () => showSignature(EVENTS[parseInt(el.dataset.idx,10)], parseInt(el.dataset.idx,10)));
+  });
+  log.querySelectorAll('[data-approval-idx]').forEach(el => {
+    el.addEventListener('click', () => showApproval(EVENTS[parseInt(el.dataset.approvalIdx,10)]));
+  });
+  log.querySelectorAll('[data-refusal-idx]').forEach(el => {
+    el.addEventListener('click', () => showRefusal(EVENTS[parseInt(el.dataset.refusalIdx,10)]));
+  });
+  log.querySelectorAll('[data-followup-idx]').forEach(el => {
+    el.addEventListener('click', () => showRefusal(null, EVENTS[parseInt(el.dataset.followupIdx,10)]));
+  });
+}
+
+function renderMeta(){
+  const currentDriver = [...EVENTS].reverse().find(e => e.driver)?.driver || 'alice';
+  document.getElementById('termMeta').innerHTML =
+    'Session <b>' + SESSION_ID + '</b> &middot; agent <b>' + BOT_ID + '</b> &middot; driver ' +
+    '<span class="driverNow">' + currentDriver + '</span>';
+}
+
+function renderChain(){
+  const n = EVENTS.length + 4; // +4 for join/system lines not individually counted in the real UI style
+  const head = fauxHash('chain-head-' + BOT_ID).slice(0,10);
+  document.getElementById('chainBar').innerHTML =
+    'chain intact &middot; ' + n + ' events &middot; RSA signed ✓ (' + n + '/' + n + ') &middot; head ' + head + '&hellip;';
+}
+
+function showSignature(e, idx){
+  const p = document.getElementById('recPanel');
+  const seed = SIG_TAG + '|' + idx + '|' + e.text;
+  const sig = fauxHash(seed);
+  const rows = [
+    ['event_index', '#' + (idx+5)],
+    ['event_kind', e.kind],
+    ['driver_of_record', e.driver || 'none'],
+    ['agent_id', BOT_ID],
+    ['signature_tag', SIG_TAG],
+    ['signature_hash', sig.slice(0,20) + '…'],
+  ];
+  if (e.detail) {
+    rows.push(['action', e.detail.action]);
+    rows.push(['target', e.detail.target]);
+    rows.push(['decision_tier', e.detail.tier]);
+    rows.push(['verdict', e.detail.verdict]);
+    rows.push(['note', e.detail.note]);
+  } else {
+    rows.push(['note', 'Conversational or system event — no bindable action attached.']);
+  }
+  p.innerHTML = '<h4>Signature detail — synthetic, generated in your browser</h4>' +
+    rows.map(([k,v]) => '<div class="recRow"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>').join('');
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function showApproval(e){
+  const p = document.getElementById('recPanel');
+  const a = e.approval;
+  const ctxSeed = SIG_TAG + '|approval|' + a.approver + '|' + a.proposal;
+  const hash = fauxHash(ctxSeed);
+  const rows = [
+    ['approver', a.approver],
+    ['proposal', a.proposal],
+    ['rendered_context', a.rendered_context.map(c => '• ' + c).join('<br>')],
+    ['approval_context_hash', 'sha256:' + hash.slice(0,32) + '…'],
+    ['informed_context_captured', 'true'],
+    ['note', a.note],
+  ];
+  p.innerHTML = '<h4>Approval — bound to what the approver actually saw (synthetic)</h4>' +
+    rows.map(([k,v]) => '<div class="recRow"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>').join('');
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* Refusal state is tracked across the two demo panel entry points (the
+   refusal event itself, and the later followup event) so re-opening either
+   one always shows the current pending/resolved state — same shape as the
+   real get_refusals() join in the backend. */
+const REFUSAL_STATE = { followupPending: true, followup: null, followupSource: null };
+
+function showRefusal(refusalEvent, followupEvent){
+  if (followupEvent && followupEvent.refusalFollowup) {
+    REFUSAL_STATE.followupPending = false;
+    REFUSAL_STATE.followup = followupEvent.refusalFollowup.followup;
+    REFUSAL_STATE.followupSource = followupEvent.refusalFollowup.followupSource;
+  }
+  const src = refusalEvent ? refusalEvent.refusal : EVENTS.find(x => x.refusal).refusal;
+  const seed = SIG_TAG + '|refusal|' + src.action + '|' + src.reason;
+  const hash = fauxHash(seed);
+  const p = document.getElementById('refusalPanel');
+  const rows = [
+    ['action', src.action],
+    ['reason', src.reason],
+    ['rendered_context', src.rendered_context.map(c => '• ' + c).join('<br>')],
+    ['refusal_context_hash', 'sha256:' + hash.slice(0,32) + '…'],
+  ];
+  p.innerHTML = '<h4>Refusal log — a decline is a durable record, not a dead end (synthetic)</h4>' +
+    rows.map(([k,v]) => '<div class="refusalRow"><div class="rlabel">'+k+'</div><div class="rval">'+v+'</div></div>').join('') +
+    '<div class="refusalRow"><div class="rlabel">followup_pending</div><div class="rval '+(REFUSAL_STATE.followupPending?'pending':'resolved')+'">'+REFUSAL_STATE.followupPending+'</div></div>' +
+    (REFUSAL_STATE.followup ? '<div class="refusalRow"><div class="rlabel">followup ('+REFUSAL_STATE.followupSource+')</div><div class="rval resolved">'+REFUSAL_STATE.followup+'</div></div>' : '');
+  p.classList.add('show');
+  p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+renderMeta();
+renderLog();
+renderChain();
+
+/* Contact form: builds a mailto: link client-side and opens it. No network
+   request is made and no data leaves the browser except via the user's own
+   email client, which they control and can inspect before sending. */
+function wireContactForm(){
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = (document.getElementById('cf-name').value || '').trim();
+    const email = (document.getElementById('cf-email').value || '').trim();
+    const company = (document.getElementById('cf-company').value || '').trim();
+    const message = (document.getElementById('cf-message').value || '').trim();
+
+    const subject = 'Multiplayer agent sessions — enquiry from ' + (name || 'website visitor');
+    const bodyLines = [
+      message,
+      '',
+      '---',
+      'Name: ' + name,
+      'Email: ' + email,
+    ];
+    if (company) bodyLines.push('Company: ' + company);
+    bodyLines.push('Sent from: hardinai.co.uk/multiplayer.html');
+
+    const mailto = 'mailto:info@hardinai.co.uk'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+    window.location.href = mailto;
+  });
+}
+wireContactForm();
+</script>
+</body></html>
