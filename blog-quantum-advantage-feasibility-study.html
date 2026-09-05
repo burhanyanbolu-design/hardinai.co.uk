@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EF6RKG8KY2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EF6RKG8KY2');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We Tried to Find Quantum Advantage. Here Are the Six Things We Got Wrong | Hardin AI Solutions</title>
+<meta name="description" content="A feasibility study of output-aware tensor-network contraction against real IBM Quantum hardware. No quantum advantage found — but six corrected mistakes, two real hardware jobs, and a fully reproducible negative result.">
+<meta name="keywords" content="quantum computing, quantum advantage, tensor networks, IBM Quantum, NISQ, variable elimination, tensor contraction, quantum feasibility study">
+<meta name="author" content="Burhan Yanbolu">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hardinai.co.uk/blog-quantum-advantage-feasibility-study.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.svg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="We Tried to Find Quantum Advantage. Here Are the Six Things We Got Wrong">
+<meta property="og:description" content="A feasibility study of output-aware tensor-network contraction against real IBM Quantum hardware — two real hardware jobs, six corrected mistakes, and an honest negative result.">
+<meta property="og:url" content="https://hardinai.co.uk/blog-quantum-advantage-feasibility-study.html">
+<meta property="og:site_name" content="Hardin AI Solutions">
+<meta property="og:locale" content="en_GB">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "We Tried to Find Quantum Advantage. Here Are the Six Things We Got Wrong",
+  "description": "A feasibility study of output-aware tensor-network contraction against real IBM Quantum hardware.",
+  "author": { "@type": "Person", "name": "Burhan Yanbolu" },
+  "publisher": { "@type": "Organization", "name": "Hardin AI Solutions", "url": "https://hardinai.co.uk" },
+  "datePublished": "2026-09-05",
+  "dateModified": "2026-09-05",
+  "url": "https://hardinai.co.uk/blog-quantum-advantage-feasibility-study.html",
+  "inLanguage": "en-GB",
+  "keywords": "quantum computing, quantum advantage, tensor networks, IBM Quantum"
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --black: #050508; --white: #f2f0ea; --accent: #00e5ff; --accent2: #ff3c5f; --mid: #111118; --text-dim: #6a6a7a; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 16px; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.35; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.04); backdrop-filter: blur(12px); background: rgba(5,5,8,0.7); }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-name { font-family: 'Arial Black', sans-serif; font-size: 1.15rem; font-weight: 900; letter-spacing: 0.18em; color: var(--white); }
+.logo-sub { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.35em; color: var(--accent); opacity: 0.85; margin-top: 2px; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-cta { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent); color: var(--black); padding: 0.6rem 1.4rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+.nav-cta:hover { background: var(--white); }
+.article-hero { padding: 10rem 4rem 4rem; max-width: 860px; margin: 0 auto; }
+.article-tag { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.article-tag::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5.5vw, 4.4rem); line-height: 1.05; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+h1 span { color: var(--accent); }
+.article-meta { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.meta-item { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+.meta-item span { color: var(--accent); }
+.article-body { max-width: 860px; margin: 0 auto; padding: 0 4rem 6rem; }
+.article-body p { font-size: 1rem; line-height: 1.85; color: rgba(242,240,234,0.8); margin-bottom: 1.8rem; font-weight: 300; }
+.article-body h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; color: var(--white); margin: 3rem 0 1rem; line-height: 1; }
+.article-body h2 span { color: var(--accent); }
+.article-body h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.03em; color: var(--white); margin: 2rem 0 0.8rem; }
+.article-body ul, .article-body ol { margin: 0 0 1.8rem 1.4rem; color: rgba(242,240,234,0.8); font-weight: 300; line-height: 1.8; }
+.article-body li { margin-bottom: 0.5rem; }
+.article-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0 2.2rem; font-size: 0.85rem; }
+.article-body th, .article-body td { border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 0.8rem; text-align: left; }
+.article-body th { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(0,229,255,0.04); }
+.article-body code { font-family: 'Space Mono', monospace; font-size: 0.85em; background: rgba(255,255,255,0.06); padding: 0.15em 0.4em; border-radius: 3px; }
+.article-body pre { font-family: 'Space Mono', monospace; font-size: 0.82rem; background: var(--mid); border: 1px solid rgba(255,255,255,0.08); padding: 1.2rem 1.5rem; overflow-x: auto; margin: 1.5rem 0 2rem; line-height: 1.6; }
+.correction-box { border: 1px solid rgba(255,60,95,0.25); background: rgba(255,60,95,0.04); padding: 1.5rem 2rem; margin: 2rem 0; position: relative; }
+.correction-box::before { content: attr(data-label); font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--accent2); display: block; margin-bottom: 0.6rem; }
+.correction-box p:last-child { margin-bottom: 0; }
+.tip-box { border: 1px solid rgba(0,229,255,0.2); background: rgba(0,229,255,0.04); padding: 1.5rem 2rem; margin: 2rem 0; position: relative; }
+.tip-box::before { content: attr(data-label); font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--accent); display: block; margin-bottom: 0.6rem; }
+.tip-box p:last-child { margin-bottom: 0; }
+.number-block { display: flex; gap: 1.5rem; margin: 2.5rem 0; align-items: flex-start; }
+.number-block .num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: rgba(0,229,255,0.15); line-height: 1; flex-shrink: 0; width: 60px; }
+.number-block .content h3 { margin-top: 0; }
+.cta-inline { background: var(--mid); border: 1px solid rgba(0,229,255,0.2); padding: 2.5rem; margin: 3rem 0; text-align: center; }
+.cta-inline h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; margin-bottom: 0.8rem; }
+.cta-inline h3 span { color: var(--accent); }
+.cta-inline p { font-size: 0.92rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+.btn-primary { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--accent); color: var(--black); padding: 0.9rem 2rem; font-weight: 700; text-decoration: none; display: inline-block; transition: background 0.2s; margin: 0 0.4rem; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
+.btn-primary:hover { background: var(--white); }
+.btn-outline { font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; background: transparent; color: var(--white); padding: 0.9rem 2rem; font-weight: 400; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); display: inline-block; transition: border-color 0.2s, color 0.2s; margin: 0 0.4rem; }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+.scorecard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.08); margin: 1.5rem 0 2.2rem; }
+.scorecard-cell { background: var(--black); padding: 1.2rem; text-align: center; }
+.scorecard-cell .label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.4rem; }
+.scorecard-cell .value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--accent); }
+footer { padding: 2.5rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--text-dim); }
+.footer-links { display: flex; gap: 2rem; }
+.footer-links a { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 768px) { nav { padding: 1.2rem 1.5rem; } .nav-links { display: none; } .article-hero, .article-body { padding-left: 1.5rem; padding-right: 1.5rem; } .number-block { flex-direction: column; gap: 0.5rem; } .number-block .num { font-size: 2.5rem; width: auto; } .scorecard { grid-template-columns: 1fr; } footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">
+    <svg width="38" height="44" viewBox="0 0 38 44">
+      <polygon points="19,1 37,11 37,33 19,43 1,33 1,11" fill="none" stroke="#00e5ff" stroke-width="1.6" opacity="0.55"/>
+      <polygon points="19,5 33,13 33,31 19,39 5,31 5,13" fill="none" stroke="#00e5ff" stroke-width="0.6" opacity="0.25"/>
+      <polygon points="19,5 33,13 33,31 19,39 5,31 5,13" fill="#00e5ff" opacity="0.04"/>
+      <text x="4" y="28" font-family="'Arial Black',sans-serif" font-size="17" font-weight="900" fill="#00e5ff">H</text>
+      <text x="14" y="28" font-family="'Arial Black',sans-serif" font-size="17" font-weight="900" fill="#00e5ff" opacity="0.45">A</text>
+      <text x="24" y="28" font-family="'Arial Black',sans-serif" font-size="17" font-weight="900" fill="#00e5ff" opacity="0.18">S</text>
+    </svg>
+    <span class="logo-text">
+      <span class="logo-name">HARDIN</span>
+      <span class="logo-sub">AI SOLUTIONS</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="https://tbn.hardinai.co.uk">TBN Protocol</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+  <a href="/#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">Blog — Quantum Research</div>
+  <h1>We Tried to Find <span>Quantum Advantage.</span><br>Here Are the Six Things We Got Wrong.</h1>
+  <div class="article-meta">
+    <div class="meta-item">By <span>Burhan Yanbolu</span></div>
+    <div class="meta-item">Published <span>5 September 2026</span></div>
+    <div class="meta-item">Read time <span>9 minutes</span></div>
+    <div class="meta-item">Category <span>Quantum Computing</span></div>
+  </div>
+</div>
+
+<div class="article-body">
+  <p>A feasibility study of output-aware tensor-network contraction against real quantum hardware. Two real IBM Quantum jobs, 40,960 shots total, and six corrections to my own conclusions along the way. This is not a discovery, and it is not a quantum advantage claim &mdash; it is an honest account of trying to find one and coming up short, with the measurements kept and the mistakes left in.</p>
+
+  <h2>The <span>Question</span> We Were Testing</h2>
+  <p>We set out to test whether quantum circuits could be built where exact classical simulation cost grows much faster than the physical circuit depth needed to run them. If that gap exists and is large enough, it is the kind of thing that separates quantum computers from classical ones on a specific, well-defined task.</p>
+  <p>The honest answer is no &mdash; not on any hardware available today. But getting to that answer required correcting our own conclusions six times, and the corrections turned out to be more useful than the result itself.</p>
+
+  <div class="tip-box" data-label="WHAT WE MEASURED">
+    <p>Classical contraction cost scales as 2<sup>w</sup> in practice, with a measured exponent of <strong>1.984</strong> over ten consecutive doublings of circuit width. Effective two-qubit error on IBM's Heron architecture is <strong>gate-local at 0.845%</strong>, stable across an 11.6&times; span in gate count and reproducible across two independent hardware jobs with different control settings. Memory is not a constraint &mdash; slicing removes it for a 1.00&ndash;3.18&times; FLOP penalty, and slices parallelise perfectly. Connectivity degree, not planarity, is the dominant topological lever. Standard error suppression &mdash; dynamical decoupling plus twirling &mdash; made things worse, costing 8&ndash;14% net fidelity on this circuit class. And qubit count is a hard ceiling that no amount of circuit cleverness or gate quality can raise.</p>
+  </div>
+
+  <p>Three simultaneous hardware requirements follow from this, and no currently available machine satisfies all three. More on that below.</p>
+
+  <h2>The <span>Method</span></h2>
+  <p>The approach began as an "elastic box" idea: expand only the part of a computation currently needed, collapse what's finished. Formalised, that is variable elimination with an active frontier &mdash; for a graph <em>G</em> and elimination order &pi;, you carry only the variables still connecting processed to unprocessed regions. A frontier of <em>w</em> binary variables means at most 2<sup>w</sup> table entries.</p>
+  <p>The circuit family used throughout was two layers of single-qubit RY rotations separated by a graph-defined CZ layer, which gives a deliberately modifiable interaction graph while remaining exactly simulable as a reference. The graphs themselves were <strong>banded</strong>: for <em>n</em> vertices and band parameter <em>w</em>, edges connect <code>(i,j)</code> whenever <code>i &lt; j &le; min(n-1, i+w)</code>. This family has provably exact treewidth <em>w</em> &mdash; not approximately, not usually, exactly &mdash; which makes width a dial you can turn rather than a lottery you hope to win.</p>
+  <p>The hypothesis: find graphs where 2<sup>w</sup> grows fast while physical depth stays shallow enough to execute on real hardware.</p>
+
+  <h2>The <span>Six Corrections</span></h2>
+
+  <div class="number-block">
+    <div class="num">01</div>
+    <div class="content">
+      <h3>Our null result was a cache artifact</h3>
+      <p>An early experiment increased the contraction-cost metric by 42&times; and measured only a 3.5% wall-clock change. We took that as evidence the cost model was wrong.</p>
+      <p>It wasn't. At 16 qubits with frontier width 5, the state table is a few hundred bytes and lives entirely in L1 cache, so we were timing Python dispatch and memory setup &mdash; not arithmetic. Re-running at 30 qubits across widths 12&ndash;22 produced clean scaling at every step: 945&times; growth over ten doublings, a fitted exponent of <strong>1.984</strong> against a theoretical 2.000.</p>
+    </div>
+  </div>
+  <div class="correction-box" data-label="LESSON">
+    <p>If your working set fits in cache, you are not measuring your algorithm.</p>
+  </div>
+
+  <div class="number-block">
+    <div class="num">02</div>
+    <div class="content">
+      <h3>There was no memory wall</h3>
+      <p>From the scaling table we concluded memory was the binding constraint &mdash; band 27 on a 32&nbsp;GB machine, and an absurd 37 exabytes at width 58.</p>
+      <p>Wrong, because it assumed dense unsliced contraction. Slicing fixes a subset of indices and contracts each assignment separately, cutting peak memory by 2<sup>k</sup> for <em>k</em> sliced indices. Measured overhead across every case tested: 1.00&times; to 3.18&times; FLOPs. Worse for the hardness case: slices are independent, so the computation is embarrassingly parallel and a cluster attacks it near-linearly &mdash; exactly how the classical rebuttals to Google's 53-qubit claim moved the estimate from 10,000 years to days.</p>
+    </div>
+  </div>
+  <div class="correction-box" data-label="LESSON">
+    <p>Hardness must be quoted as total FLOPs against a named adversary. Width and single-machine memory are not hardness measures.</p>
+  </div>
+
+  <div class="number-block">
+    <div class="num">03</div>
+    <div class="content">
+      <h3>We overstated a depth penalty by using the wrong metric</h3>
+      <p>Doubling the entangling layer appeared to degrade agreement badly &mdash; up to 32% relative error on one observable. But relative error on a Pauli expectation is misleading when the ideal value is small. Converting to effective fidelity (&#10216;P&#10217;<sub>measured</sub> / &#10216;P&#10217;<sub>ideal</sub>), the real cost was F 0.93 &rarr; 0.75, not the 4&times; collapse the relative-error figures implied. One "57% error" observable turned out to be sampling-limited &mdash; its ideal value was 0.0267 against a &plusmn;0.01 shot-noise floor at 10k shots.</p>
+    </div>
+  </div>
+  <div class="correction-box" data-label="LESSON">
+    <p>Under depolarizing-type noise, relative error on &#10216;P&#10217; is approximately 1&minus;F regardless of the observable's magnitude. Report effective fidelity, and always state the shot-noise floor beside it.</p>
+  </div>
+
+  <div class="number-block">
+    <div class="num">04</div>
+    <div class="content">
+      <h3>Apparent depth-dependent error growth didn't survive more data</h3>
+      <p>Two data points suggested effective error grew with depth: 0.48% per gate at 15 gates, 0.96% at 30. If real, that would have killed any extrapolation to the several-hundred-gate circuits we cared about. It doesn't survive a five-point measurement on native edges with no SWAP routing &mdash; the original two points were confounded by routing overhead and by the model error described next.</p>
+    </div>
+  </div>
+
+  <div class="number-block">
+    <div class="num">05</div>
+    <div class="content">
+      <h3>Our own mirror-circuit fit was wrong</h3>
+      <p>We measured fidelity using mirror circuits &mdash; apply <em>U</em> then <em>U&dagger;</em>, so the ideal output is exactly |0&hellip;0&#10217; with probability 1, with no classical simulation needed at any size. Our first analysis fitted a one-parameter model and reported error <em>falling</em> from 2.52% to 0.98% as gate count increased &mdash; and then flagged that as unphysical.</p>
+      <p>The model was wrong, not the data. A mirror circuit carries a constant penalty independent of gate count &mdash; readout error on every qubit, plus single-qubit gate error. Dividing a constant penalty by a growing gate count manufactures exactly that spurious decline. The correct two-parameter model, <code>P(0&hellip;0) = A &middot; (1 &minus; &epsilon;)<sup>G</sup></code>, fitted to <strong>A = 0.7409, &epsilon; = 0.845%</strong> with maximum residual 2.5&sigma; across an 11.6&times; span in gate count &mdash; and the fit validated itself: A = 0.7409 over 20 qubits implies per-qubit readout error of 1.49%, matching IBM Heron's published 1&ndash;2% spec.</p>
+    </div>
+  </div>
+  <div class="correction-box" data-label="LESSON">
+    <p>Always separate state-prep-and-measurement error from gate-scaling error. A one-parameter fit to mirror data will always appear to show error improving with depth.</p>
+  </div>
+
+  <div class="number-block">
+    <div class="num">06</div>
+    <div class="content">
+      <h3>Error suppression made it worse</h3>
+      <p>Effective error of 0.845% is 4.1&times; the device's own nominal best-quartile figure of 0.204%. We argued that gap was crosstalk, idle decoherence and readout &mdash; not gate quality &mdash; and therefore fixable with control rather than new hardware. We tested it: identical circuits, same seed, plus dynamical decoupling, Pauli gate twirling, and measurement twirling.</p>
+      <p>Every point got worse. Net fidelity fell 1&ndash;14% across the sweep. Twirling inserts extra single-qubit pulses around every two-qubit gate &mdash; several hundred at 208 gates, each with its own error. Measurement twirling adds 20 X gates immediately before readout, directly degrading the SPAM term. And dynamical decoupling protects <em>idle</em> qubits, but these circuits keep nearly everything busy, so its added pulses were mostly pure cost.</p>
+    </div>
+  </div>
+  <div class="tip-box" data-label="UNINTENDED BENEFIT">
+    <p>&epsilon; measured 0.845% and 0.860% in two independent jobs under very different control settings. That stability validates the error model more strongly than one job could &mdash; the number is robust; only our explanation for it was wrong.</p>
+  </div>
+
+  <h2>What We <span>Established</span></h2>
+  <p><strong>Connectivity degree dominates planarity.</strong> Measuring width bought per gate spent across topologies at n&asymp;100 showed degree-8 random graphs buying far more contraction width per gate than heavy-hex, IBM's own planar degree-3 topology &mdash; de-planarising at fixed degree gave only 1.5&times;, not the 4&times; we expected. Degree is the lever.</p>
+  <p><strong>Heavy-hex cannot be simultaneously hard and executable.</strong> On the real 156-qubit coupling map, the deepest circuit that still returns signal has optimised contraction width 6 &mdash; under a millisecond of classical work. Reaching two hours of classical cost takes 822 gates, where fidelity has collapsed to 3&times;10<sup>&minus;4</sup>.</p>
+  <p><strong>Qubit count is a hard ceiling.</strong> Contraction width saturates at roughly <em>n</em>, so maximum achievable classical cost is about <em>G</em>&middot;2<sup>n</sup> regardless of connectivity or fidelity. Against a 1000-GPU adversary at 30 days, that requires <strong>n &gtrsim 65&ndash;70</strong>.</p>
+
+  <h2>The <span>Scorecard</span></h2>
+  <p>Three requirements have to hold simultaneously: at least 65&ndash;70 qubits to set the hardness ceiling, connectivity degree of 4 or more (ideally all-to-all) to make that ceiling reachable at feasible gate count, and effective error at or below 0.1% at roughly 1,750 gates so signal survives. No device available today satisfies all three.</p>
+  <table>
+    <tr><th>Device</th><th>Qubits</th><th>Connectivity</th><th>Gate Error</th></tr>
+    <tr><td>IBM Fez</td><td>156 &#x2713;</td><td>planar deg-3 &#x2717;</td><td>0.845% measured &#x2717;</td></tr>
+    <tr><td>Quantinuum H2</td><td>56 &#x2717;</td><td>all-to-all &#x2713;</td><td>0.06% &#x2713;</td></tr>
+    <tr><td>IonQ Forte</td><td>36 &#x2717;</td><td>all-to-all &#x2713;</td><td>~0.4% ~</td></tr>
+  </table>
+  <p>IBM satisfies one requirement. Quantinuum satisfies two and is short only on qubit count &mdash; which is the quantity hardware roadmaps actually deliver, unlike topology, which is fixed at fabrication. A note on vendor claims: 56 all-to-all qubits at 2,000 gates is roughly four hours on a serious cluster by the accounting above. "Beyond classical simulation" claims refer to specific algorithms against specific classical methods, not to a general bound.</p>
+
+  <h2>What This Does <span>Not</span> Show</h2>
+  <ul>
+    <li>No quantum advantage, and no claim to it.</li>
+    <li>No novel algorithm. Frontier contraction is variable elimination, which is textbook. Multi-amplitude reuse is established in the literature. The banded-graph treewidth result is standard graph theory.</li>
+    <li>No verified large-width result. At width beyond ~50 the ideal amplitudes cannot be computed classically &mdash; that is the point of the regime. Any serious attempt needs a verification strategy designed in from the start.</li>
+    <li>All classical cost figures are upper bounds favourable to the quantum side. We used a weak contraction optimiser; stronger presets lower adversary cost further.</li>
+  </ul>
+
+  <h2>What's <span>Missing</span> Is Not Theory</h2>
+  <p>The programme's structural assumptions hold up. Classical cost scales as claimed, error does not blow up with depth, and a concrete circuit exists &mdash; degree-8 connectivity, depth 10, 395 gates, contraction width 108 &mdash; that would be classically intractable and hardware-executable at roughly 8 million shots, fewer samples than Google used for Sycamore.</p>
+  <p>What's missing is a device with roughly 70 all-to-all qubits at around 0.06% error. That is a specification, not a research direction, and it is close enough to current roadmaps to be worth writing down.</p>
+  <p>We also now know which plausible shortcut does not work, which has independent value: you cannot close a 4&times; effective-error gap with dynamical decoupling and twirling on this circuit class. That cost us one hardware job to learn, and might save someone else the same.</p>
+
+  <div class="tip-box" data-label="REPRODUCIBILITY">
+    <p>The full technical writeup, all eight reproducibility scripts, and the raw IBM Quantum job data are published on Zenodo with a permanent DOI &mdash; no login or endorsement required to access it.</p>
+  </div>
+
+  <div class="cta-inline">
+    <h3>Read the Full <span>Technical Record</span></h3>
+    <p>Complete writeup, reproducibility scripts, and hardware job data — openly published under CC-BY-4.0.</p>
+    <a href="https://doi.org/10.5281/zenodo.22352840" class="btn-primary" target="_blank">View on Zenodo</a>
+    <a href="/#contact" class="btn-outline">Get in Touch</a>
+  </div>
+</div>
+
+<footer>
+  <a href="/" class="logo">
+    <span class="logo-text">
+      <span class="logo-name" style="font-family:'Arial Black',sans-serif;font-size:0.95rem;font-weight:900;letter-spacing:0.18em;color:var(--white);">HARDIN</span>
+      <span class="logo-sub" style="font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.35em;color:var(--accent);opacity:0.85;">AI SOLUTIONS</span>
+    </span>
+  </a>
+  <span class="footer-copy">© 2026 Hardin Enterprises Ltd — Company No. 17149514</span>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/blog.html">Blog</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</footer>
+</body>
+</html>
