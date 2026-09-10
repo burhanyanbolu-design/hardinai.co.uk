@@ -141,7 +141,7 @@ footer { padding: 2.5rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); dis
 
   <h2>The <span>Question</span> We Were Testing</h2>
   <p>We set out to test whether quantum circuits could be built where exact classical simulation cost grows much faster than the physical circuit depth needed to run them. If that gap exists and is large enough, it is the kind of thing that separates quantum computers from classical ones on a specific, well-defined task.</p>
-  <p>The honest answer is no &mdash; not on any hardware available today. But getting to that answer required correcting our own conclusions six times, and the corrections turned out to be more useful than the result itself.</p>
+  <p>The honest answer is no &mdash; not on any hardware available today. But getting to that answer required correcting our own conclusions six times, and the corrections turned out to be more useful than the result itself. A seventh correction followed after publication, and it works against the study's own argument &mdash; it is covered at the end of this piece.</p>
 
   <div class="tip-box" data-label="WHAT WE MEASURED">
     <p>Classical contraction cost scales as 2<sup>w</sup> in practice, with a measured exponent of <strong>1.984</strong> over ten consecutive doublings of circuit width. Effective two-qubit error on IBM's Heron architecture is <strong>gate-local at 0.845%</strong>, stable across an 11.6&times; span in gate count and reproducible across two independent hardware jobs with different control settings. Memory is not a constraint &mdash; slicing removes it for a 1.00&ndash;3.18&times; FLOP penalty, and slices parallelise perfectly. Connectivity degree, not planarity, is the dominant topological lever. Standard error suppression &mdash; dynamical decoupling plus twirling &mdash; made things worse, costing 8&ndash;14% net fidelity on this circuit class. And qubit count is a hard ceiling that no amount of circuit cleverness or gate quality can raise.</p>
@@ -251,14 +251,20 @@ footer { padding: 2.5rem 4rem; border-top: 1px solid rgba(255,255,255,0.06); dis
   <p>What's missing is a device with roughly 70 all-to-all qubits at around 0.06% error. That is a specification, not a research direction, and it is close enough to current roadmaps to be worth writing down.</p>
   <p>We also now know which plausible shortcut does not work, which has independent value: you cannot close a 4&times; effective-error gap with dynamical decoupling and twirling on this circuit class. That cost us one hardware job to learn, and might save someone else the same.</p>
 
+  <h2>A <span>Seventh</span> Correction</h2>
+  <p>After publishing, one more conclusion had to be corrected &mdash; and this one works against the argument above.</p>
+  <p>The 2&times;10<sup>w</sup> cost figure describes <em>exact</em> contraction. So the obvious question is what happens if you stop insisting on exact: prune the frontier table, dropping configurations whose amplitude is small relative to the largest one currently active.</p>
+  <p>At width 20, keeping <strong>104 configurations out of 1,048,576</strong> &mdash; 0.01% &mdash; still produced an answer accurate to 1.5&times;10<sup>-4</sup>, running roughly 14,000&times; faster. Error also <em>improved</em> as width grew, 24&times; lower at width 20 than at width 8. The approximation gets cheaper and more accurate as the problem gets harder, which is the opposite of how approximations usually behave.</p>
+  <p>The consequence: an adversary willing to accept 10<sup>-4</sup> error is not paying 2<sup>w</sup> for this circuit family. Classical hardness has to be quoted against a named <em>accuracy target</em>, not only a width. Amplitude truncation is textbook tensor-network practice, so there is no novelty claim here &mdash; the finding is that this circuit family tolerates it, and increasingly so with width.</p>
+
   <div class="tip-box" data-label="REPRODUCIBILITY">
-    <p>The full technical writeup, all eight reproducibility scripts, and the raw IBM Quantum job data are published on Zenodo with a permanent DOI &mdash; no login or endorsement required to access it.</p>
+    <p>The full technical writeup, all reproducibility scripts, and the raw IBM Quantum job data are published on Zenodo with a permanent DOI &mdash; no login or endorsement required to access it. Version 2 adds Addendum VI and the seventh correction.</p>
   </div>
 
   <div class="cta-inline">
     <h3>Read the Full <span>Technical Record</span></h3>
     <p>Complete writeup, reproducibility scripts, and hardware job data — openly published under CC-BY-4.0.</p>
-    <a href="https://doi.org/10.5281/zenodo.22352840" class="btn-primary" target="_blank">View on Zenodo</a>
+    <a href="https://doi.org/10.5281/zenodo.22352839" class="btn-primary" target="_blank">View on Zenodo</a>
     <a href="/#contact" class="btn-outline">Get in Touch</a>
   </div>
 </div>
