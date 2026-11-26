@@ -125,6 +125,10 @@
 .ai-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse-ai 1.2s ease-in-out infinite; display: inline-block; }
 @keyframes pulse-ai { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
 @media (max-width: 1024px) { .ai-visual { display: none; } }
+@media (max-width: 768px) { .nav-cta-pqc { display: none; } }
+@media (min-width: 769px) and (max-width: 1700px) { nav { padding: 1.4rem 2rem; } .nav-links { gap: 1.1rem; } .nav-links a { letter-spacing: 0.08em; } .nav-cta { padding: 0.55rem 0.8rem; letter-spacing: 0.06em; } }
+@media (min-width: 769px) and (max-width: 1360px) { nav { padding: 1.2rem 1.2rem; } .logo { gap: 6px; } .nav-links { gap: 0.75rem; margin: 0 0.6rem; } .nav-links a { font-size: 0.64rem; letter-spacing: 0.04em; } .nav-cta { font-size: 0.62rem; letter-spacing: 0.03em; padding: 0.5rem 0.55rem; } }
+@media (min-width: 769px) and (max-width: 1100px) { nav { padding: 1rem 0.8rem; } .nav-links { gap: 0.55rem; } .nav-links a { font-size: 0.58rem; letter-spacing: 0.02em; } .nav-cta { font-size: 0.56rem; letter-spacing: 0.02em; padding: 0.45rem 0.45rem; } }
 </style></head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSKCSX6M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -169,6 +173,7 @@
   <a href="https://memory.hardinai.co.uk" target="_blank" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#7c3aed,#4f8ef7);">🧠 Hardin Memory</a>
   <a href="custom-gpt.html" class="nav-cta" style="margin-right:0.5rem;background:linear-gradient(135deg,#00e5ff,#0091b0);">🤖 Custom GPT</a>
   <a href="https://certify.hardinai.co.uk/article50" target="_blank" class="nav-cta" style="background:linear-gradient(135deg,#00e5ff,#00bfa5);">EU Article 50 & US SB 942 Certify</a>
+  <a href="https://tbn.hardinai.co.uk/pqc-scanner" target="_blank" class="nav-cta nav-cta-pqc" style="margin-left:0.5rem;background:linear-gradient(135deg,#ff3c5f,#7b2ff7);">⚛️ Post-Quantum</a>
 </nav>
 
 <!-- HERO -->
@@ -177,19 +182,19 @@
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-content">
-    <div class="hero-tag">Hardin AI Certify &middot; EU AI Act Article 50 &amp; California SB 942</div>
+    <div class="hero-tag">Hardin AI &middot; Post-Quantum Migration</div>
     <div class="hero-tag" style="opacity:1;">
       <img src="assets/PartnerNetwork_SelectPartner.svg" alt="OpenAI Partner Network &middot; Select Tier" style="height:80px;width:auto;display:block;">
     </div>
     <h1 style="font-size:clamp(2.2rem,5vw,4.5rem);">
-      <span>AI content compliance,</span>
-      <span class="line-accent">with cryptographic proof.</span>
-      <span class="line-dim">Enforceable 2 August 2026.</span>
+      <span>RSA won&rsquo;t last forever.</span>
+      <span class="line-accent">Find it in your code.</span>
+      <span class="line-dim">Move to post-quantum.</span>
     </h1>
-    <p class="hero-desc">The EU AI Act requires you to mark and disclose AI-generated content. California SB 942 requires the same. Hardin AI Certify produces a signed, independently verifiable certificate for every asset &mdash; visible labelling, machine-readable metadata (C2PA/XMP), and a public verification link regulators can check at any time. Official signatory of the EU AI Act Code of Practice on AI Transparency.</p>
+    <p class="hero-desc">Quantum computers are expected to break RSA and ECC. Data and signatures created today can be harvested now and attacked later. The Hardin AI post-quantum scanner finds RSA, ECC and weak hashes in your codebase, maps each one to the NIST standards ML-KEM (FIPS 203) and ML-DSA (FIPS 204), and generates a hybrid RSA + ML-DSA migration path so nothing breaks along the way.</p>
     <div class="hero-actions">
-      <a href="https://certify.hardinai.co.uk/article50" class="btn-primary">Start certification &mdash; Free trial</a>
-      <a href="https://certify.hardinai.co.uk/article50#pricing" class="btn-outline">See Pricing</a>
+      <a href="https://tbn.hardinai.co.uk/pqc-scanner" class="btn-primary">Scan your code &mdash; Free</a>
+      <a href="https://tbn.hardinai.co.uk/pqc-scanner#demo" class="btn-outline">See the live demo</a>
     </div>
   </div>
 
@@ -199,6 +204,21 @@
     <div class="ai-label">NEURAL NETWORK <span class="ai-dot"></span> ACTIVE</div>
   </div>
 
+</section>
+
+<!-- ARTICLE 50 CERTIFY (moved from hero) -->
+<section class="section" id="article50" style="background:var(--mid);">
+  <div class="hero-tag">Hardin AI Certify &middot; EU AI Act Article 50 &amp; California SB 942</div>
+  <h2 class="section-title" style="font-size:clamp(2.2rem,5vw,4.5rem);line-height:0.92;margin-bottom:2rem;">
+    <span style="display:block;">AI content compliance,</span>
+    <span style="display:block;color:var(--accent);">with cryptographic proof.</span>
+    <span style="display:block;color:rgba(242,240,234,0.25);">Enforceable 2 August 2026.</span>
+  </h2>
+  <p class="hero-desc" style="max-width:700px;">The EU AI Act requires you to mark and disclose AI-generated content. California SB 942 requires the same. Hardin AI Certify produces a signed, independently verifiable certificate for every asset &mdash; visible labelling, machine-readable metadata (C2PA/XMP), and a public verification link regulators can check at any time. Official signatory of the EU AI Act Code of Practice on AI Transparency.</p>
+  <div class="hero-actions">
+    <a href="https://certify.hardinai.co.uk/article50" class="btn-primary">Start certification &mdash; Free trial</a>
+    <a href="https://certify.hardinai.co.uk/article50#pricing" class="btn-outline">See Pricing</a>
+  </div>
 </section>
 
 <!-- TICKER -->
@@ -239,6 +259,7 @@
     <div class="service-card fade-up"><div class="service-num">09</div><div class="service-icon">📜</div><div class="service-name">CERTIFICATION NOTARY</div><p class="service-desc">Domain-bound, cryptographically signed compliance certificates. We certify content, bind it to your website, and produce proof that holds up in legal proceedings. Change the content or move it — the certificate fails. Like SSL, but for AI advertising compliance. All software designed, built, and owned by Hardin Enterprises.</p></div>
     <div class="service-card fade-up"><div class="service-num">10</div><div class="service-icon">🛡️</div><div class="service-name">PENETRATION TESTING</div><p class="service-desc">Professional penetration testing and security assessments for web applications, APIs, internal networks, and cloud infrastructure. OWASP-aligned methodology, detailed remediation reports, and retest verification. Protect your business before attackers find the gaps.</p></div>
     <div class="service-card fade-up"><div class="service-num">11</div><div class="service-icon">⚡</div><div class="service-name">AI WRITE GOVERNANCE</div><p class="service-desc">Real-time write-boundary enforcement for enterprise AI. Every action your AI agent takes — approve, edit, delete — is checked and allowed or blocked before it reaches production. Sealed with a cryptographic receipt nobody can fake or erase. 225,000+ governed writes in production. Mapped to EU AI Act Article 14.</p></div>
+    <div class="service-card fade-up"><div class="service-num">12</div><div class="service-icon">⚛️</div><div class="service-name">POST-QUANTUM MIGRATION SCANNER</div><p class="service-desc">Find RSA and ECC in your code and plan the move to NIST post-quantum standards (ML-KEM, ML-DSA). Free scan and live demo. <a href="https://tbn.hardinai.co.uk/pqc-scanner" target="_blank" style="color:var(--accent);text-decoration:none;">Try the scanner &rarr;</a></p></div>
   </div>
 </section>
 
